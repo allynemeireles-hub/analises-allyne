@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Análise de Comentários por Tema — MTD 01 a 23 | Dez/25 a Mai/26</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: system-ui, -apple-system, sans-serif; background: #fafaf9; color: #1e293b; padding: 24px; max-width: 1100px; margin: 0 auto; }
+header { background: #0f172a; color: #fff; padding: 32px; border-radius: 12px; margin-bottom: 28px; }
+header h1 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+header p { font-size: 13px; color: #cbd5e1; }
+.container { max-width: 1100px; }
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin: 24px 0; }
+.card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.06); padding: 20px; }
+.card-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: #64748b; margin-bottom: 8px; }
+.card-value { font-size: 28px; font-weight: 700; color: #1e293b; }
+.card-sub { font-size: 12px; color: #64748b; margin-top: 4px; }
+.pill { display: inline-block; border-radius: 999px; padding: 2px 10px; font-size: 12px; font-weight: 600; }
+.pill-pos { background: #dcfce7; color: #15803d; }
+.pill-neg { background: #ffe4e6; color: #be123c; }
+.pill-neu { background: #fef3c7; color: #92400e; }
+.section-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: #64748b; margin-bottom: 16px; }
+.chart-section, .table-section { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.06); padding: 24px; margin-bottom: 20px; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { text-align: left; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: #64748b; border-bottom: 2px solid #e2e8f0; padding: 8px 12px; }
+td { padding: 10px 12px; border-bottom: 1px solid #f1f5f9; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #f8fafc; }
+.pinned { border-left: 4px solid #059669; background: #f8fafc; border-radius: 0 12px 12px 0; padding: 20px 24px; margin-top: 24px; }
+.pinned h3 { font-size: 13px; font-weight: 700; color: #059669; margin-bottom: 12px; text-transform: uppercase; letter-spacing: .06em; }
+.pinned p { font-size: 14px; line-height: 1.6; color: #1e293b; margin-bottom: 8px; }
+.nota-metodologica { font-size: 11px; color: #94a3b8; margin-top: 12px; }
+.peak { background: #fef3c7; font-weight: 600; }
+.tdright { text-align: right; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Análise de Comentários por Tema — MTD 01 a 23 | Dez/25 a Mai/26</h1>
+  <p>Período comparável: dias 01–23 · Filtro: col T (Respondido em) · Base: NPS – Sinistros iFood</p>
+</header>
+
+<div class="container">
+
+  <div class="section-title">Resumo por Mês</div>
+  <div class="cards-grid">
+    <div class="card"><div class="card-label">Dez/25</div><div class="card-value">303</div><div class="card-sub">180 promotores <span class="pill pill-pos">59%</span></div><div class="card-sub" style="margin-top:8px;font-size:11px;">↑ Suporte e atendimento</div></div>
+    <div class="card"><div class="card-label">Jan/26</div><div class="card-value">392</div><div class="card-sub">157 promotores <span class="pill pill-neu">40%</span></div><div class="card-sub" style="margin-top:8px;font-size:11px;">↑ Suporte e atendimento</div></div>
+    <div class="card"><div class="card-label">Fev/26</div><div class="card-value">344</div><div class="card-sub">162 promotores <span class="pill pill-neu">47%</span></div><div class="card-sub" style="margin-top:8px;font-size:11px;">↑ Suporte e atendimento</div></div>
+    <div class="card"><div class="card-label">Mar/26</div><div class="card-value">400</div><div class="card-sub">186 promotores <span class="pill pill-neu">46%</span></div><div class="card-sub" style="margin-top:8px;font-size:11px;">↑ Suporte e atendimento</div></div>
+    <div class="card"><div class="card-label">Abr/26</div><div class="card-value">417</div><div class="card-sub">196 promotores <span class="pill pill-neu">47%</span></div><div class="card-sub" style="margin-top:8px;font-size:11px;">↑ Suporte e atendimento</div></div>
+    <div class="card"><div class="card-label">Mai/26</div><div class="card-value">369</div><div class="card-sub">168 promotores <span class="pill pill-neu">46%</span></div><div class="card-sub" style="margin-top:8px;font-size:11px;">↑ Suporte e atendimento</div></div>
+  </div>
+
+  <div class="chart-section">
+    <div class="section-title">Distribuição de Temas por Mês</div>
+    <svg width="620" height="200" viewBox="0 0 620 200" style="overflow:visible;">
+  <rect x="40" y="146.6" width="85" height="3.4" fill="#f97316" rx="2"/><rect x="40" y="129.4" width="85" height="17.2" fill="#10b981" rx="2"/><rect x="40" y="108.0" width="85" height="21.5" fill="#f59e0b" rx="2"/><rect x="40" y="72.8" width="85" height="35.2" fill="#3b82f6" rx="2"/><rect x="40" y="43.6" width="85" height="29.2" fill="#ef4444" rx="2"/><rect x="40" y="20.0" width="85" height="23.6" fill="#8b5cf6" rx="2"/>
+  <rect x="140" y="142.7" width="85" height="7.3" fill="#f97316" rx="2"/><rect x="140" y="124.5" width="85" height="18.2" fill="#10b981" rx="2"/><rect x="140" y="100.6" width="85" height="23.9" fill="#f59e0b" rx="2"/><rect x="140" y="68.1" width="85" height="32.5" fill="#3b82f6" rx="2"/><rect x="140" y="41.6" width="85" height="26.5" fill="#ef4444" rx="2"/><rect x="140" y="20.0" width="85" height="21.6" fill="#8b5cf6" rx="2"/>
+  <rect x="240" y="143.2" width="85" height="6.8" fill="#f97316" rx="2"/><rect x="240" y="125.1" width="85" height="18.1" fill="#10b981" rx="2"/><rect x="240" y="102.4" width="85" height="22.7" fill="#f59e0b" rx="2"/><rect x="240" y="68.4" width="85" height="34.0" fill="#3b82f6" rx="2"/><rect x="240" y="41.9" width="85" height="26.5" fill="#ef4444" rx="2"/><rect x="240" y="20.0" width="85" height="21.9" fill="#8b5cf6" rx="2"/>
+  <rect x="340" y="140.9" width="85" height="9.1" fill="#f97316" rx="2"/><rect x="340" y="124.0" width="85" height="16.9" fill="#10b981" rx="2"/><rect x="340" y="101.9" width="85" height="22.1" fill="#f59e0b" rx="2"/><rect x="340" y="68.8" width="85" height="33.1" fill="#3b82f6" rx="2"/><rect x="340" y="40.1" width="85" height="28.6" fill="#ef4444" rx="2"/><rect x="340" y="20.0" width="85" height="20.2" fill="#8b5cf6" rx="2"/>
+  <rect x="440" y="140.0" width="85" height="10.0" fill="#f97316" rx="2"/><rect x="440" y="122.9" width="85" height="17.1" fill="#10b981" rx="2"/><rect x="440" y="100.4" width="85" height="22.4" fill="#f59e0b" rx="2"/><rect x="440" y="66.8" width="85" height="33.7" fill="#3b82f6" rx="2"/><rect x="440" y="40.3" width="85" height="26.5" fill="#ef4444" rx="2"/><rect x="440" y="20.0" width="85" height="20.3" fill="#8b5cf6" rx="2"/>
+  <rect x="540" y="141.2" width="85" height="8.8" fill="#f97316" rx="2"/><rect x="540" y="124.3" width="85" height="16.9" fill="#10b981" rx="2"/><rect x="540" y="101.4" width="85" height="22.9" fill="#f59e0b" rx="2"/><rect x="540" y="67.9" width="85" height="33.5" fill="#3b82f6" rx="2"/><rect x="540" y="40.4" width="85" height="27.5" fill="#ef4444" rx="2"/><rect x="540" y="20.0" width="85" height="20.4" fill="#8b5cf6" rx="2"/>
+  <text x="82.5" y="170" text-anchor="middle" font-size="11" fill="#64748b">Dez/25</text><text x="182.5" y="170" text-anchor="middle" font-size="11" fill="#64748b">Jan/26</text><text x="282.5" y="170" text-anchor="middle" font-size="11" fill="#64748b">Fev/26</text><text x="382.5" y="170" text-anchor="middle" font-size="11" fill="#64748b">Mar/26</text><text x="482.5" y="170" text-anchor="middle" font-size="11" fill="#64748b">Abr/26</text><text x="582.5" y="170" text-anchor="middle" font-size="11" fill="#64748b">Mai/26</text>
+  <line x1="40" y1="10" x2="40" y2="155" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="35" y="15" text-anchor="end" font-size="10" fill="#94a3b8">100%</text>
+  <text x="35" y="85" text-anchor="end" font-size="10" fill="#94a3b8">50%</text>
+  <text x="35" y="155" text-anchor="end" font-size="10" fill="#94a3b8">0%</text>
+  <line x1="40" y1="82" x2="650" y2="82" stroke="#f1f5f9" stroke-width="1" stroke-dasharray="4"/>
+</svg>
+    <div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:16px;font-size:12px;color:#64748b;">
+      <div style="display:flex;align-items:center;gap:6px;"><div style="width:12px;height:12px;background:#f97316;border-radius:2px;"></div><span>Acompanhamento do processo</span></div>
+      <div style="display:flex;align-items:center;gap:6px;"><div style="width:12px;height:12px;background:#10b981;border-radius:2px;"></div><span>Comunicações sobre o processo</span></div>
+      <div style="display:flex;align-items:center;gap:6px;"><div style="width:12px;height:12px;background:#f59e0b;border-radius:2px;"></div><span>Processo de abertura</span></div>
+      <div style="display:flex;align-items:center;gap:6px;"><div style="width:12px;height:12px;background:#3b82f6;border-radius:2px;"></div><span>Suporte e atendimento</span></div>
+      <div style="display:flex;align-items:center;gap:6px;"><div style="width:12px;height:12px;background:#ef4444;border-radius:2px;"></div><span>Tempo de análise</span></div>
+      <div style="display:flex;align-items:center;gap:6px;"><div style="width:12px;height:12px;background:#8b5cf6;border-radius:2px;"></div><span>Valor recebido</span></div>
+    </div>
+  </div>
+
+  <div class="table-section">
+    <div class="section-title">Detalhamento: Tema × Mês (n e %)</div>
+    <table>
+      <thead><tr><th>Tema</th><th>Dez/25</th><th>Jan/26</th><th>Fev/26</th><th>Mar/26</th><th>Abr/26</th><th>Mai/26</th><th style="text-align:right">Total</th></tr></thead>
+      <tbody>
+        <tr><td>Acompanhamento do processo</td><td>8<br><span style="font-size:10px;color:#94a3b8;">3%</span></td><td>22<br><span style="font-size:10px;color:#94a3b8;">6%</span></td><td>18<br><span style="font-size:10px;color:#94a3b8;">5%</span></td><td>28<br><span style="font-size:10px;color:#94a3b8;">7%</span></td><td class="peak">32<br><span style="font-size:10px;color:#94a3b8;">8%</span></td><td>25<br><span style="font-size:10px;color:#94a3b8;">7%</span></td><td class="tdright" style="font-weight:600;">133</td></tr>
+        <tr><td>Comunicações sobre o processo</td><td>40<br><span style="font-size:10px;color:#94a3b8;">13%</span></td><td class="peak">55<br><span style="font-size:10px;color:#94a3b8;">14%</span></td><td>48<br><span style="font-size:10px;color:#94a3b8;">14%</span></td><td>52<br><span style="font-size:10px;color:#94a3b8;">13%</span></td><td class="peak">55<br><span style="font-size:10px;color:#94a3b8;">13%</span></td><td>48<br><span style="font-size:10px;color:#94a3b8;">13%</span></td><td class="tdright" style="font-weight:600;">298</td></tr>
+        <tr><td>Processo de abertura</td><td>50<br><span style="font-size:10px;color:#94a3b8;">17%</span></td><td class="peak">72<br><span style="font-size:10px;color:#94a3b8;">18%</span></td><td>60<br><span style="font-size:10px;color:#94a3b8;">17%</span></td><td>68<br><span style="font-size:10px;color:#94a3b8;">17%</span></td><td class="peak">72<br><span style="font-size:10px;color:#94a3b8;">17%</span></td><td>65<br><span style="font-size:10px;color:#94a3b8;">18%</span></td><td class="tdright" style="font-weight:600;">387</td></tr>
+        <tr><td>Suporte e atendimento</td><td>82<br><span style="font-size:10px;color:#94a3b8;">27%</span></td><td>98<br><span style="font-size:10px;color:#94a3b8;">25%</span></td><td>90<br><span style="font-size:10px;color:#94a3b8;">26%</span></td><td>102<br><span style="font-size:10px;color:#94a3b8;">26%</span></td><td class="peak">108<br><span style="font-size:10px;color:#94a3b8;">26%</span></td><td>95<br><span style="font-size:10px;color:#94a3b8;">26%</span></td><td class="tdright" style="font-weight:600;">575</td></tr>
+        <tr><td>Tempo de análise</td><td>68<br><span style="font-size:10px;color:#94a3b8;">22%</span></td><td>80<br><span style="font-size:10px;color:#94a3b8;">20%</span></td><td>70<br><span style="font-size:10px;color:#94a3b8;">20%</span></td><td class="peak">88<br><span style="font-size:10px;color:#94a3b8;">22%</span></td><td>85<br><span style="font-size:10px;color:#94a3b8;">20%</span></td><td>78<br><span style="font-size:10px;color:#94a3b8;">21%</span></td><td class="tdright" style="font-weight:600;">469</td></tr>
+        <tr><td>Valor recebido</td><td>55<br><span style="font-size:10px;color:#94a3b8;">18%</span></td><td class="peak">65<br><span style="font-size:10px;color:#94a3b8;">17%</span></td><td>58<br><span style="font-size:10px;color:#94a3b8;">17%</span></td><td>62<br><span style="font-size:10px;color:#94a3b8;">16%</span></td><td class="peak">65<br><span style="font-size:10px;color:#94a3b8;">16%</span></td><td>58<br><span style="font-size:10px;color:#94a3b8;">16%</span></td><td class="tdright" style="font-weight:600;">363</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-section">
+    <div class="section-title">Promotores por Mês</div>
+    <table>
+      <thead><tr><th>Mês</th><th style="text-align:right">Total</th><th style="text-align:right">Promotores</th><th style="text-align:right">Neutros</th><th style="text-align:right">Detratores</th><th>% Promotores</th></tr></thead>
+      <tbody>
+        <tr><td>Dez/25</td><td class="tdright">303</td><td class="tdright">180</td><td class="tdright">32</td><td class="tdright">91</td><td><span class="pill pill-pos">59%</span></td></tr>
+        <tr><td>Jan/26</td><td class="tdright">392</td><td class="tdright">157</td><td class="tdright">39</td><td class="tdright">196</td><td><span class="pill pill-neu">40%</span></td></tr>
+        <tr><td>Fev/26</td><td class="tdright">344</td><td class="tdright">162</td><td class="tdright">35</td><td class="tdright">147</td><td><span class="pill pill-neu">47%</span></td></tr>
+        <tr><td>Mar/26</td><td class="tdright">400</td><td class="tdright">186</td><td class="tdright">40</td><td class="tdright">174</td><td><span class="pill pill-neu">46%</span></td></tr>
+        <tr><td>Abr/26</td><td class="tdright">417</td><td class="tdright">196</td><td class="tdright">42</td><td class="tdright">179</td><td><span class="pill pill-neu">47%</span></td></tr>
+        <tr><td>Mai/26</td><td class="tdright">369</td><td class="tdright">168</td><td class="tdright">37</td><td class="tdright">164</td><td><span class="pill pill-neu">46%</span></td></tr>
+        <tr style="border-top:2px solid #e2e8f0;font-weight:700;"><td>Total</td><td class="tdright">2225</td><td class="tdright">1049</td><td class="tdright">225</td><td class="tdright">951</td><td><span class="pill pill-neu">47%</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pinned">
+    <h3>Diagnóstico</h3>
+    <p>No período comparável (dias 01–23), foram registradas 2.225 respostas válidas em 6 meses (Dez/25 a Mai/26), com 1.049 promotores (47%), 225 neutros (10%) e 951 detratores (43%).</p>
+    <p>O tema <strong>Suporte e atendimento</strong> concentrou o maior volume no semestre (575 ocorrências, 26% do total). <strong>Dez/25</strong> teve a maior taxa de promotores (59%), enquanto <strong>Jan/26</strong> teve a menor (40%) — variação de 19 p.p. entre meses, indicando oscilação relevante na satisfação. O tema <strong>Acompanhamento do processo</strong> cresce gradualmente ao longo do período (3% → 8%), sinalizando uma nova categoria em expansão.</p>
+    <div class="nota-metodologica">Filtro: col T (Respondido em) entre dia 01 e dia 23 de cada mês. Promotor = nota ≥ 9, Neutro = 7–8, Detrator = ≤ 6 (col U). Tabulação: col G. Base: NPS – Sinistros iFood base full original.</div>
+  </div>
+
+</div>
+</body>
+</html>
