@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Análise de Maturação de Coorte — Sinistros iFood</title>
+<style>
+  * { box-sizing:border-box; margin:0; padding:0 }
+  body { font-family:'Segoe UI',system-ui,-apple-system,sans-serif; background:#f4f6f9; color:#1a1a2e; font-size:13px; line-height:1.5 }
+  .page { max-width:1060px; margin:0 auto; padding:32px 24px }
+  .header { background:#1a1a2e; color:#fff; padding:26px 30px; border-radius:10px; margin-bottom:24px }
+  .header h1 { font-size:19px; font-weight:700 }
+  .header p  { color:#a0aec0; font-size:12px; margin-top:5px }
+  .header .meta { display:flex; gap:24px; margin-top:12px; flex-wrap:wrap }
+  .header .meta span { font-size:11px; color:#a0aec0 }
+  .header .meta strong { color:#fff }
+  .section { background:#fff; border-radius:8px; padding:22px 24px; margin-bottom:18px; box-shadow:0 1px 4px rgba(0,0,0,.06) }
+  .section-title { font-size:12px; font-weight:700; color:#1a1a2e; text-transform:uppercase; letter-spacing:.6px; border-bottom:2px solid #f0f0f0; padding-bottom:10px; margin-bottom:16px }
+  .section-title span { color:#718096; font-weight:400; text-transform:none; letter-spacing:0; margin-left:6px; font-size:11px }
+  table { width:100%; border-collapse:collapse; font-size:12.5px }
+  th { background:#f7f8fa; color:#718096; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.4px; padding:8px 10px; text-align:left; border-bottom:1px solid #edf2f7 }
+  td { padding:9px 10px; border-bottom:1px solid #f0f4f8; vertical-align:middle }
+  tr:last-child td { border-bottom:none }
+  tr:hover td { background:#f9fafb }
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:16px }
+  .thesis { border-radius:8px; padding:16px 18px; font-size:12.5px }
+  .thesis strong { display:block; font-size:13px; margin-bottom:6px }
+  .thesis.green { background:#eafaf1; border-left:4px solid #27ae60; color:#1a3d2b }
+  .thesis.red   { background:#fef2f2; border-left:4px solid #c0392b; color:#4a1a1a }
+  .thesis.amber { background:#fffbeb; border-left:4px solid #f59e0b; color:#4a3200 }
+  .thesis.blue  { background:#eff6ff; border-left:4px solid #2563eb; color:#1a2d4a }
+  .conclusion { background:#1a1a2e; color:#fff; border-radius:8px; padding:22px 26px; margin-bottom:18px }
+  .conclusion h2 { font-size:14px; font-weight:700; margin-bottom:12px; color:#e2e8f0 }
+  .conclusion p { font-size:12.5px; color:#a0aec0; line-height:1.7 }
+  .conclusion strong { color:#fff }
+  .sql-box { background:#0f172a; border-radius:8px; padding:18px 20px; font-family:'Cascadia Code','Fira Code',monospace; font-size:11.5px; color:#94a3b8; white-space:pre; overflow-x:auto; line-height:1.7 }
+  .sql-box .kw { color:#7dd3fc }
+  .sql-box .fn { color:#86efac }
+  .sql-box .cm { color:#475569 }
+  .sql-box .st { color:#fda4af }
+  .footer { text-align:center; font-size:11px; color:#a0aec0; margin-top:24px; padding-top:12px; border-top:1px solid #e2e8f0 }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <h1>Análise de Maturação de Coorte — Retorno ao Trabalho</h1>
+    <p>Diagnóstico do viés de observação na análise de sinistros concluídos</p>
+    <div class="meta">
+      <span>Período: <strong>nov/2025 – abr/2026</strong></span>
+      <span>Fonte: <strong>base_sinistros_rotas — dados internos iFood</strong></span>
+      <span>Metodologia: <strong>Análise de maturação de coorte · Controle por janela de observação</strong></span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">O que o claim_days revela <span>duração do período de cobertura por status</span></div>
+    <table>
+      <thead>
+        <tr>
+          <th>Status</th>
+          <th style="text-align:right">Média (dias)</th>
+          <th style="text-align:right">Mediana (dias)</th>
+          <th style="text-align:right">Máximo (dias)</th>
+          <th>Interpretação</th>
+        </tr>
+      </thead>
+      <tbody>
+    <tr>
+      <td><span style="background:#27ae60;color:#fff;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:600">Deferido</span></td>
+      <td style="text-align:right;font-weight:600">20.2</td>
+      <td style="text-align:right;font-weight:600">20</td>
+      <td style="text-align:right;font-weight:600">30</td>
+      <td style="font-size:11.5px;color:#4a5568">Cap de produto — nenhum sinistro deferido excede 30 dias de cobertura.</td>
+    </tr>
+    <tr>
+      <td><span style="background:#c0392b;color:#fff;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:600">Indeferido</span></td>
+      <td style="text-align:right;font-weight:600">14.9</td>
+      <td style="text-align:right;font-weight:600">17</td>
+      <td style="text-align:right;font-weight:600">121</td>
+      <td style="font-size:11.5px;color:#4a5568">Outlier de 121 dias sugere cobertura diferente (DMHO/IPA) ou tentativa de fraude.</td>
+    </tr></tbody>
+    </table>
+    <div style="margin-top:14px" class="two-col">
+      <div class="thesis blue">
+        <strong>Cap de 30 dias para Deferido</strong>
+        O máximo de 30 dias confirma um limite de produto — provavelmente a cobertura máxima do DIT. Isso significa que <em>nenhum entregador deferido fica afastado por mais de 30 dias</em>. O retorno ao trabalho, quando acontece, deve ocorrer em poucas semanas após a conclusão.
+      </div>
+      <div class="thesis amber">
+        <strong>Outlier de 121 dias no Indeferido</strong>
+        Casos indeferidos com claim_days muito alto (acima de 30) provavelmente pertencem às coberturas DMHO ou IPA, onde o período reivindicado é naturalmente maior. Vale investigar se o <em>volume de sinistros longos negados está crescendo</em>.
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Mapa de maturidade das coortes <span>baseado em data de referência 10/mai/2026</span></div>
+    <p style="font-size:12px;color:#718096;margin-bottom:14px">
+      Com claim_days máximo de <strong>30 dias (Deferido)</strong>, o retorno pós-conclusão deve concentrar-se nas primeiras semanas. Adotamos <strong>60 dias como threshold de maturidade segura</strong> e <strong>30 dias como maturidade mínima</strong>.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Coorte</th>
+          <th style="text-align:right">Dias observados</th>
+          <th>Progresso</th>
+          <th>Status</th>
+          <th>Interpretação</th>
+        </tr>
+      </thead>
+      <tbody>
+    <tr style="background:#eafaf1"><td style="font-weight:600;color:#1a1a2e">2025-11</td><td style="text-align:right">161</td><td><div style="display:flex;align-items:center;gap:8px"><div style="background:#e2e8f0;border-radius:4px;height:8px;width:120px"><div style="background:#27ae60;height:8px;border-radius:4px;width:120px"></div></div></div></td><td><span style="background:#27ae60;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600">✓ Madura</span></td><td style="font-size:11.5px;color:#4a5568">Resultado confiável para análise</td></tr>
+    <tr style="background:#eafaf1"><td style="font-weight:600;color:#1a1a2e">2025-12</td><td style="text-align:right">130</td><td><div style="display:flex;align-items:center;gap:8px"><div style="background:#e2e8f0;border-radius:4px;height:8px;width:120px"><div style="background:#27ae60;height:8px;border-radius:4px;width:96px"></div></div></div></td><td><span style="background:#27ae60;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600">✓ Madura</span></td><td style="font-size:11.5px;color:#4a5568">Resultado confiável para análise</td></tr>
+    <tr style="background:#eafaf1"><td style="font-weight:600;color:#1a1a2e">2026-01</td><td style="text-align:right">99</td><td><div style="display:flex;align-items:center;gap:8px"><div style="background:#e2e8f0;border-radius:4px;height:8px;width:120px"><div style="background:#27ae60;height:8px;border-radius:4px;width:73px"></div></div></div></td><td><span style="background:#27ae60;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600">✓ Madura</span></td><td style="font-size:11.5px;color:#4a5568">Resultado confiável para análise</td></tr>
+    <tr style="background:#eafaf1"><td style="font-weight:600;color:#1a1a2e">2026-02</td><td style="text-align:right">71</td><td><div style="display:flex;align-items:center;gap:8px"><div style="background:#e2e8f0;border-radius:4px;height:8px;width:120px"><div style="background:#27ae60;height:8px;border-radius:4px;width:52px"></div></div></div></td><td><span style="background:#27ae60;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600">✓ Madura</span></td><td style="font-size:11.5px;color:#4a5568">Resultado confiável para análise</td></tr>
+    <tr style="background:#fffbeb"><td style="font-weight:600;color:#1a1a2e">2026-03</td><td style="text-align:right">40</td><td><div style="display:flex;align-items:center;gap:8px"><div style="background:#e2e8f0;border-radius:4px;height:8px;width:120px"><div style="background:#f59e0b;height:8px;border-radius:4px;width:29px"></div></div></div></td><td><span style="background:#f59e0b;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600">~ Parcial</span></td><td style="font-size:11.5px;color:#4a5568">Alguns retornos pós-afastamento ainda pendentes — usar com cautela</td></tr>
+    <tr style="background:#fef2f2"><td style="font-weight:600;color:#1a1a2e">2026-04</td><td style="text-align:right">10</td><td><div style="display:flex;align-items:center;gap:8px"><div style="background:#e2e8f0;border-radius:4px;height:8px;width:120px"><div style="background:#c0392b;height:8px;border-radius:4px;width:7px"></div></div></div></td><td><span style="background:#c0392b;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600">✗ Imatura</span></td><td style="font-size:11.5px;color:#4a5568">Apenas 10 dias de observação — taxa de retorno está subavaliada</td></tr></tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Tendência corrigida <span>apenas coortes maduras — nov/25 a fev/26</span></div>
+    <table>
+      <thead><tr><th>Mês</th><th style="text-align:right">Total</th><th style="text-align:right">Retornaram</th><th>Taxa de Retorno</th><th style="text-align:right">% Não Retornou</th></tr></thead>
+      <tbody>
+    <tr><td style="font-weight:500">2025-11</td><td style="text-align:right">1,176</td><td style="text-align:right">1,002</td><td><div style="display:flex;align-items:center;gap:6px"><div style="background:#2563eb;height:8px;width:85px;border-radius:4px"></div><span style="font-weight:700;color:#2563eb">85.2%</span></div></td><td style="text-align:right;font-weight:600;color:#c0392b">14.8%</td></tr>
+    <tr><td style="font-weight:500">2025-12</td><td style="text-align:right">1,733</td><td style="text-align:right">1,477</td><td><div style="display:flex;align-items:center;gap:6px"><div style="background:#2563eb;height:8px;width:85px;border-radius:4px"></div><span style="font-weight:700;color:#2563eb">85.2%</span><span style="color:#27ae60;font-size:11px;margin-left:6px">▲ 0.0pp</span></div></td><td style="text-align:right;font-weight:600;color:#c0392b">14.8%</td></tr>
+    <tr><td style="font-weight:500">2026-01</td><td style="text-align:right">1,803</td><td style="text-align:right">1,518</td><td><div style="display:flex;align-items:center;gap:6px"><div style="background:#2563eb;height:8px;width:84px;border-radius:4px"></div><span style="font-weight:700;color:#2563eb">84.2%</span><span style="color:#c0392b;font-size:11px;margin-left:6px">▼ 1.0pp</span></div></td><td style="text-align:right;font-weight:600;color:#c0392b">15.8%</td></tr>
+    <tr><td style="font-weight:500">2026-02</td><td style="text-align:right">1,403</td><td style="text-align:right">1,090</td><td><div style="display:flex;align-items:center;gap:6px"><div style="background:#2563eb;height:8px;width:77px;border-radius:4px"></div><span style="font-weight:700;color:#2563eb">77.7%</span><span style="color:#c0392b;font-size:11px;margin-left:6px">▼ 6.5pp</span></div></td><td style="text-align:right;font-weight:600;color:#c0392b">22.3%</td></tr></tbody>
+    </table>
+  </div>
+
+  <div class="conclusion">
+    <h2>Conclusão revisada da análise</h2>
+    <p>A queda observada de <strong>85.2% → 64.1%</strong> na taxa de retorno <strong>não pode ser lida como tendência real em sua totalidade</strong>. Os dados das coortes maduras (nov/25 a fev/26) mostram uma queda real porém mais suave: de <strong>85.2% para 77.7%</strong> — uma redução de <strong>7.5pp</strong>, não 21pp.<br><br>Os outros ~13pp de queda visíveis em mar/26 e abr/26 são, muito provavelmente, <strong>viés de maturação</strong>: entregadores que ainda vão retornar, mas ainda não tiveram tempo suficiente desde a conclusão do sinistro.<br><br>O alerta real permanece: há uma <strong>queda consistente e estrutural de ~7-8pp</strong> nas coortes com observação plena. Isso merece investigação — mas a narrativa de "colapso" em abril precisa ser revisada quando a coorte atingir maturidade.</p>
+  </div>
+
+  <div class="footer">Análise de maturação de coorte · Fonte: base_sinistros_rotas — iFood Logística · Metodologia: Controle por janela de observação com threshold de 60 dias</div>
+</div>
+</body>
+</html>
