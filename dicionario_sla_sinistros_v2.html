@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Dicionário de Dados — Base SLA Sinistros</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f5f5f5;
+    color: #1a1a1a;
+    font-size: 13.5px;
+    line-height: 1.65;
+  }
+
+  .page-wrapper {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 48px 32px 80px;
+  }
+
+  /* ── Header ── */
+  .doc-header {
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 28px;
+    margin-bottom: 40px;
+  }
+  .doc-header .badge {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: #ea1d2c;
+    background: #fdecea;
+    border-radius: 4px;
+    padding: 3px 9px;
+    margin-bottom: 12px;
+  }
+  .doc-header h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #111;
+    line-height: 1.25;
+    margin-bottom: 8px;
+  }
+  .doc-header .meta {
+    font-size: 12px;
+    color: #777;
+  }
+  .doc-header .meta span { margin-right: 20px; }
+
+  /* ── Section title ── */
+  .section-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 16px;
+  }
+
+  /* ── Flow ── */
+  .flow-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    padding: 28px 24px;
+  }
+  .flow-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+    min-width: 110px;
+    position: relative;
+  }
+  .flow-step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 16px;
+    right: -18px;
+    width: 36px;
+    height: 1px;
+    background: #d0d0d0;
+    z-index: 1;
+  }
+  .flow-circle {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+    background: #1a1a1a;
+    flex-shrink: 0;
+  }
+  .flow-circle.red  { background: #ea1d2c; }
+  .flow-circle.gray { background: #6b6b6b; }
+  .flow-circle.dark { background: #222; }
+
+  .flow-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #222;
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+  .flow-sub {
+    font-size: 10.5px;
+    color: #888;
+    line-height: 1.3;
+  }
+
+  /* ── Table ── */
+  .table-wrapper {
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 48px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  thead tr { background: #111; }
+  thead th {
+    padding: 13px 16px;
+    text-align: left;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  tbody tr {
+    border-bottom: 1px solid #f0f0f0;
+    transition: background .12s;
+  }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: #fafafa; }
+  tbody td {
+    padding: 13px 16px;
+    vertical-align: top;
+    font-size: 12.5px;
+    color: #333;
+  }
+
+  .field-name {
+    font-weight: 600;
+    color: #111;
+    font-size: 12.5px;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    border-radius: 4px;
+    padding: 2px 7px;
+    letter-spacing: .04em;
+    white-space: nowrap;
+  }
+  .tag-status-ok      { background: #e8f5e9; color: #2e7d32; }
+  .tag-status-reject  { background: #fdecea; color: #c62828; }
+  .tag-status-pending { background: #fff8e1; color: #f57f17; }
+  .tag-status-neutral { background: #f0f0f0; color: #555; }
+  .tag-status-pay     { background: #e3f2fd; color: #1565c0; }
+
+  .note-text { font-size: 12px; color: #555; line-height: 1.55; }
+
+  .note-highlight {
+    background: #fff8e1;
+    border-left: 3px solid #f9a825;
+    padding: 6px 10px;
+    border-radius: 0 4px 4px 0;
+    margin-top: 6px;
+    font-size: 11.5px;
+    color: #5d4037;
+    line-height: 1.5;
+  }
+  .note-alert {
+    background: #fdecea;
+    border-left: 3px solid #ea1d2c;
+    padding: 6px 10px;
+    border-radius: 0 4px 4px 0;
+    margin-top: 6px;
+    font-size: 11.5px;
+    color: #7f0000;
+    line-height: 1.5;
+  }
+  .note-info {
+    background: #e8f4fd;
+    border-left: 3px solid #1976d2;
+    padding: 6px 10px;
+    border-radius: 0 4px 4px 0;
+    margin-top: 6px;
+    font-size: 11.5px;
+    color: #0d3c61;
+    line-height: 1.5;
+  }
+  .note-correction {
+    background: #f3e5f5;
+    border-left: 3px solid #7b1fa2;
+    padding: 6px 10px;
+    border-radius: 0 4px 4px 0;
+    margin-top: 6px;
+    font-size: 11.5px;
+    color: #4a148c;
+    line-height: 1.5;
+  }
+
+  /* ── Distinction box ── */
+  .distinction-box {
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    padding: 28px 28px 24px;
+    margin-bottom: 48px;
+  }
+  .distinction-box .box-title {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .distinction-box .box-title span {
+    font-size: 10px;
+    font-weight: 600;
+    background: #f3e5f5;
+    color: #6a1b9a;
+    border-radius: 4px;
+    padding: 2px 8px;
+    margin-left: 10px;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    vertical-align: middle;
+  }
+  .distinction-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  .distinction-card {
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    padding: 18px 20px;
+    background: #fafafa;
+  }
+  .distinction-card h4 {
+    font-size: 12px;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 10px;
+  }
+  .distinction-card p {
+    font-size: 12px;
+    color: #444;
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+  .distinction-card .quote {
+    font-size: 11.5px;
+    color: #666;
+    font-style: italic;
+    background: #f0f0f0;
+    border-radius: 4px;
+    padding: 7px 10px;
+    line-height: 1.55;
+  }
+  .distinction-summary {
+    background: #f8f8f8;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    padding: 16px 20px;
+  }
+  .distinction-summary table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+  .distinction-summary th {
+    text-align: left;
+    font-weight: 600;
+    color: #333;
+    padding: 6px 12px;
+    background: #efefef;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+  .distinction-summary td {
+    padding: 8px 12px;
+    color: #444;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 12px;
+  }
+  .distinction-summary tr:last-child td { border-bottom: none; }
+  .distinction-summary .footnote {
+    margin-top: 12px;
+    font-size: 11.5px;
+    color: #888;
+    font-style: italic;
+  }
+
+  /* ── Obs grid ── */
+  .obs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+  .obs-card {
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    padding: 22px 24px;
+  }
+  .obs-card h3 {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .obs-card ul { list-style: none; padding: 0; }
+  .obs-card ul li {
+    font-size: 12px;
+    color: #444;
+    line-height: 1.6;
+    padding: 5px 0 5px 14px;
+    border-bottom: 1px solid #f7f7f7;
+    position: relative;
+  }
+  .obs-card ul li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 13px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #ccc;
+  }
+  .obs-card ul li:last-child { border-bottom: none; }
+
+  /* ── Footer ── */
+  .doc-footer {
+    border-top: 1px solid #e8e8e8;
+    padding-top: 20px;
+    font-size: 11px;
+    color: #aaa;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <div class="badge">Dicionário de Dados</div>
+    <h1>Base SLA &mdash; Sinistros de Entregadores</h1>
+    <div class="meta">
+      <span>Domínio: Logística · Seguros</span>
+      <span>Fonte: Tableau (base SLA) + KOP (MetLife)</span>
+      <span>Consolidado em: maio / 2026</span>
+      <span>Referência: Reunião de regulação com Lucimar (18/05/2026)</span>
+    </div>
+  </div>
+
+  <!-- FLUXO -->
+  <div class="section-title">Fluxo do processo — do acidente ao pagamento</div>
+  <div class="flow-wrapper">
+    <div class="flow-step">
+      <div class="flow-circle red">1</div>
+      <div class="flow-label">Acidente</div>
+      <div class="flow-sub">Entregador preenche dados; analista confirma no BO</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-circle">2</div>
+      <div class="flow-label">Aviso do Sinistro</div>
+      <div class="flow-sub">Abertura formal no sistema (data e hora)</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-circle">3</div>
+      <div class="flow-label">Docs Básicos</div>
+      <div class="flow-sub">Checklist completo; vira para análise (D+1)</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-circle">4</div>
+      <div class="flow-label">Início Análise MetLife</div>
+      <div class="flow-sub">Primeiro status IN ANALYSIS</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-circle gray">4a</div>
+      <div class="flow-label">Doc. Complementar</div>
+      <div class="flow-sub">Pendente Info → retorna para análise ao receber</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-circle">5</div>
+      <div class="flow-label">Aceito / Recusado</div>
+      <div class="flow-sub">Analista finaliza regulação → status "Aceito"</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-circle red">6</div>
+      <div class="flow-label">Aprovação Financeira</div>
+      <div class="flow-sub">Lu/Anderson aprovam → dispara COMPENSATING</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-circle">7</div>
+      <div class="flow-label">COMPENSATING</div>
+      <div class="flow-sub">Aguardando retorno bancário (~2 dias úteis)</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-circle dark">8</div>
+      <div class="flow-label">Pago / Estorno</div>
+      <div class="flow-sub">COMPENSATED confirma ou estorno retorna à análise</div>
+    </div>
+  </div>
+
+  <!-- DICIONÁRIO -->
+  <div class="section-title">Dicionário de colunas</div>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:16%">Campo (Tableau)</th>
+          <th style="width:13%">Nome no KOP</th>
+          <th style="width:12%">Localização no KOP</th>
+          <th style="width:10%;text-align:center">Status técnico</th>
+          <th style="width:25%">Conceito</th>
+          <th style="width:24%">Observações</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>
+          <td><span class="field-name">Data Ocorrencia</span></td>
+          <td>Data do acidente</td>
+          <td>Detalhes do acidente</td>
+          <td style="text-align:center"><span class="tag tag-status-neutral">—</span></td>
+          <td>Data de ocorrência do acidente. Confirmada pelo analista via Boletim de Ocorrência (BO).</td>
+          <td class="note-text">O entregador preenche data e horário na abertura. O analista valida e confirma a data real no BO — pode haver divergência entre o preenchimento inicial e a data oficial.</td>
+        </tr>
+
+        <tr>
+          <td><span class="field-name">Aviso Simples do Sinistro</span></td>
+          <td>Data do Aviso</td>
+          <td>Sinistro primário</td>
+          <td style="text-align:center"><span class="tag tag-status-neutral">CREATED</span></td>
+          <td>Data e hora da abertura formal do sinistro no sistema.</td>
+          <td class="note-text">Marco inicial do SLA. Todas as métricas de prazo são calculadas a partir desta data.</td>
+        </tr>
+
+        <tr>
+          <td><span class="field-name">Documentos Básicos Completos</span></td>
+          <td>Última data do status PEND_INFO</td>
+          <td>Histórico da reclamação</td>
+          <td style="text-align:center"><span class="tag tag-status-pending">PEND_INFO</span></td>
+          <td>Data em que o checklist de documentação básica foi completado e o processo virou para análise.</td>
+          <td class="note-text">
+            <div class="note-highlight">Analistas trabalham em D-1: se os documentos chegaram em 29/04, a data registrada será 30/04. Comportamento sistemático e esperado na base.</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td><span class="field-name">Inicio da Analise Metlife</span></td>
+          <td>Data da virada de chave para IN ANALYSIS</td>
+          <td>Histórico da reclamação</td>
+          <td style="text-align:center"><span class="tag tag-status-ok">IN_ANALYSIS</span></td>
+          <td>Primeira vez que o histórico registra o status IN ANALYSIS — marca o início formal da regulação pelo analista MetLife.</td>
+          <td class="note-text">Considera-se sempre a <strong>primeira ocorrência</strong> do status. Mudanças subsequentes (ex.: retorno de docs complementares) não sobrescrevem esta data.</td>
+        </tr>
+
+        <tr>
+          <td><span class="field-name">Documentos Complementares Pendentes</span></td>
+          <td>PENDING_INFO após IN_ANALYSIS</td>
+          <td>Histórico da reclamação</td>
+          <td style="text-align:center"><span class="tag tag-status-pending">PEND_INFO</span></td>
+          <td>Data em que o analista solicitou documentação complementar durante a análise.</td>
+          <td class="note-text">
+            Para a data ser registrada, o analista deve: (1) selecionar "Pendente Info", (2) escolher o motivo "Solicitar documentação complementar" e (3) clicar em Avançar.
+            <div class="note-highlight">Ao receber o documento, o status volta para IN_ANALYSIS e o processo reinicia a partir deste ponto.</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td><span class="field-name">Finalizacao do Sinistro (Pendente de Aprovacao) — APROVADO</span></td>
+          <td>Primeiro status COMPENSATING</td>
+          <td>Histórico da reclamação</td>
+          <td style="text-align:center"><span class="tag tag-status-pay">COMPENSATING</span></td>
+          <td>
+            Data em que Lucimar ou Anderson <strong>tomaram a decisão de aprovar</strong> o pagamento após o analista marcar como "aceito". É o ato da aprovação financeira interna — não o processamento bancário.
+          </td>
+          <td class="note-text">
+            <strong>Fluxo:</strong> analista → "aceito" → Lucimar/Anderson revisam → se aprovado, disparam para COMPENSATING.<br/><br/>
+            — Lucimar aprova até R$ 10.000<br/>
+            — Anderson aprova acima de R$ 10.000 ou casos especiais<br/>
+            <div class="note-correction">Correção v2: este campo NÃO é sinônimo de "Processo de Pagamento". Ele representa a decisão de aprovação; o envio ao banco é um evento subsequente. Na prática, ambos podem registrar a mesma data — mas conceitualmente são etapas distintas.</div>
+            <div class="note-alert">Se reprovado, o processo volta para IN_ANALYSIS para correção.</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td><span class="field-name">Sinistros Indeferidos</span></td>
+          <td>Data do status REJECTED</td>
+          <td>Histórico da reclamação</td>
+          <td style="text-align:center"><span class="tag tag-status-reject">REJECTED</span></td>
+          <td>Data em que o sinistro foi formalmente indeferido (recusado).</td>
+          <td class="note-text">
+            <div class="note-alert">Somente Anderson tem alçada para aprovar uma recusa formal. A equipe de regulação não recusa por conta própria.</div>
+            Pode haver influência de triagem automática (IA), mas a recusa operacional final é de responsabilidade de Anderson.
+          </td>
+        </tr>
+
+        <tr>
+          <td><span class="field-name">Processo de Pagamento</span></td>
+          <td>COMPENSATING (primeira data)</td>
+          <td>Histórico da reclamação</td>
+          <td style="text-align:center"><span class="tag tag-status-pay">COMPENSATING</span></td>
+          <td>
+            Data em que o pagamento foi <strong>enviado ao Pagnet</strong> para processamento e compensação bancária. Representa o início do trâmite financeiro externo — não a decisão de aprovação.
+          </td>
+          <td class="note-text">
+            Após o envio ao Pagnet, o sistema aguarda o retorno bancário (~2 dias úteis).
+            <div class="note-correction">Correção v2: este campo NÃO é sinônimo de "Finalização do Sinistro (APROVADO)". A aprovação financeira (decisão) gera o COMPENSATING; o Pagnet processa e retorna. Na prática, ambos podem registrar a mesma data — mas representam eventos distintos no processo.</div>
+            <div class="note-info">Citação direta — Lucimar: "A compensar — a gente já aprovou o pagamento e agora aguarda o retorno do Pagnet para que o pagamento ocorra... geralmente em média 2 dias úteis."</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td><span class="field-name">Sinistros Pagos</span></td>
+          <td>Data de pagamento</td>
+          <td>Histórico da reclamação</td>
+          <td style="text-align:center"><span class="tag tag-status-ok">COMPENSATED</span></td>
+          <td>Data em que o retorno bancário confirmou a compensação efetiva do pagamento ao entregador.</td>
+          <td class="note-text">
+            <div class="note-highlight">Atualização noturna (~01h) + retorno bancário de até 2 dias úteis após o envio ao Pagnet. A data pode aparecer como D+1 ou D+2 em relação ao COMPENSATING.</div>
+            Em casos de estorno, o sinistro pode aparecer como "pago" e depois retornar para análise.
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <!-- DISTINÇÃO DETALHADA -->
+  <div class="section-title">Distinção detalhada — campos frequentemente confundidos</div>
+  <div class="distinction-box">
+    <div class="box-title">
+      "Finalizacao do Sinistro (APROVADO)" vs. "Processo de Pagamento"
+      <span>Corrigido em v2</span>
+    </div>
+
+    <div class="distinction-grid">
+      <div class="distinction-card">
+        <h4>Finalizacao do Sinistro (APROVADO)</h4>
+        <p><strong>O que é:</strong> a decisão humana de aprovar o pagamento. Ocorre quando Lucimar ou Anderson revisam o caso em status "aceito" e confirmam o pagamento.</p>
+        <p><strong>Quem age:</strong> Lucimar (até R$ 10.000) ou Anderson (acima de R$ 10.000 / casos especiais).</p>
+        <p><strong>Efeito no sistema:</strong> dispara a mudança para COMPENSATING e envia ao Pagnet.</p>
+        <div class="quote">"Tudo que está no status aceito... só falta a minha aprovação para que o pagamento ocorra. Aí o analista manda status para aceito. Aí eu mudo para compensating." — Lucimar</div>
+      </div>
+      <div class="distinction-card">
+        <h4>Processo de Pagamento</h4>
+        <p><strong>O que é:</strong> o envio do pagamento ao sistema bancário (Pagnet) e o período de processamento/compensação financeira externa.</p>
+        <p><strong>Quem age:</strong> sistema bancário (Pagnet). Sem intervenção humana nesta etapa.</p>
+        <p><strong>Efeito no sistema:</strong> aguarda retorno do banco (~2 dias úteis) → vira COMPENSATED (pago) ou retorna em caso de estorno.</p>
+        <div class="quote">"A compensar — a gente já aprovou o pagamento e agora aguarda o retorno do Pagnet para que o pagamento ocorra... geralmente em média 2 dias úteis." — Lucimar</div>
+      </div>
+    </div>
+
+    <div class="distinction-summary">
+      <table>
+        <thead>
+          <tr>
+            <th>Campo</th>
+            <th>Evento real</th>
+            <th>Status técnico</th>
+            <th>Quem age</th>
+            <th>Podem ter a mesma data?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Finalizacao do Sinistro (APROVADO)</strong></td>
+            <td>Aprovação financeira interna</td>
+            <td><span class="tag tag-status-pay">COMPENSATING</span> (transição)</td>
+            <td>Lucimar ou Anderson</td>
+            <td>Sim — a aprovação dispara imediatamente o envio ao Pagnet</td>
+          </tr>
+          <tr>
+            <td><strong>Processo de Pagamento</strong></td>
+            <td>Envio ao Pagnet / processamento bancário</td>
+            <td><span class="tag tag-status-pay">COMPENSATING</span> (em curso)</td>
+            <td>Sistema bancário (Pagnet)</td>
+            <td>Sim — mas conceitualmente é a etapa seguinte</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="footnote">Na base SLA, ambos os campos podem registrar a mesma data (primeira data de COMPENSATING) pois a aprovação aciona o envio ao Pagnet quase instantaneamente. A distinção é conceitual e relevante para análises de SLA que precisem separar o tempo de decisão do tempo de processamento bancário.</div>
+    </div>
+  </div>
+
+  <!-- OBSERVAÇÕES ADICIONAIS -->
+  <div class="section-title">Observações adicionais — reunião com Lucimar (18/05/2026)</div>
+  <div class="obs-grid">
+    <div class="obs-card">
+      <h3>Estorno de pagamento</h3>
+      <ul>
+        <li>Ocorre quando o banco (Pagnet) rejeita ou reverte o pagamento já enviado.</li>
+        <li>Causas: rejeição bancária, inconsistência de dados, duplicidade ou identificação de pagamento indevido.</li>
+        <li>Efeito na base: o processo retorna para IN_ANALYSIS para nova tratativa — pode gerar aparente inconsistência (pago → em análise → pago novamente).</li>
+        <li>Se a análise ocorreu antes do aceite, o estorno retorna para análise; se havia doc. complementar pendente, retorna para essa etapa.</li>
+      </ul>
+    </div>
+    <div class="obs-card">
+      <h3>Alçadas de aprovação e recusa</h3>
+      <ul>
+        <li>Lucimar: aprova pagamentos até R$ 10.000.</li>
+        <li>Anderson: aprova valores acima de R$ 10.000 e todos os casos de recusa (REJECTED).</li>
+        <li>Anderson também valida casos com inconsistência de rota/horário que precisam de autorização especial.</li>
+        <li>Analistas de regulação não têm alçada de recusa — apenas regulam e encaminham.</li>
+      </ul>
+    </div>
+    <div class="obs-card">
+      <h3>Delays e comportamentos da base</h3>
+      <ul>
+        <li>Analistas trabalham em D-1: tratam processos do dia anterior.</li>
+        <li>Atualização da base: ocorre à noite (~01h), podendo atrasar a visibilidade das mudanças de status.</li>
+        <li>Retorno bancário: pode levar até 2 dias úteis após o envio ao Pagnet.</li>
+        <li>Datas de status podem aparecer com defasagem em relação à ação real do analista.</li>
+        <li>Migrações e ajustes históricos também podem gerar inconsistências pontuais.</li>
+      </ul>
+    </div>
+    <div class="obs-card">
+      <h3>Pontos de atenção para análise de SLA</h3>
+      <ul>
+        <li>"Finalizacao do Sinistro (APROVADO)" = decisão humana de aprovar. "Processo de Pagamento" = processamento bancário. São etapas distintas, mas podem ter a mesma data na base.</li>
+        <li>O nome "Pendente de Aprovação" no Tableau é enganoso: na prática, o campo representa o momento em que o pagamento já foi APROVADO (não pendente).</li>
+        <li>Sinistros com estorno podem distorcer métricas de tempo médio de pagamento.</li>
+        <li>A IA/automação pode influenciar fluxos atípicos — monitorar casos com tempo muito curto entre etapas.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="doc-footer">
+    <span>Base: Tableau (SLA Sinistros) &bull; Sistema operacional: KOP (MetLife)</span>
+    <span>v2 — atualizado com distinção entre "Finalização do Sinistro" e "Processo de Pagamento" &bull; Reunião 18/05/2026</span>
+  </div>
+
+</div>
+</body>
+</html>
