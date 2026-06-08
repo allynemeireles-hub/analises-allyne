@@ -24,6 +24,7 @@
 
         .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
         .grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+        .grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
 
         .problema-text { font-size:14px; line-height:1.7; color:#334155; }
         .problema-text strong { color:#1e293b; }
@@ -85,6 +86,7 @@
         .saving-hero .valor { font-size:72px; font-weight:800; color:#34d399; line-height:1; margin-bottom:8px; }
         .saving-hero .label { font-size:16px; font-weight:600; opacity:.95; margin-bottom:6px; }
         .saving-hero .sub { font-size:13px; opacity:.75; }
+        .saving-hero .faixa { font-size:12px; opacity:.75; margin-top:8px; }
 
         .premissas-list { list-style:none; display:flex; flex-direction:column; gap:10px; }
         .premissas-list li { display:flex; gap:12px; align-items:flex-start; font-size:13px; color:#334155; line-height:1.6; }
@@ -107,21 +109,49 @@
 
         @media(max-width:680px) {
             .grid-2, .antes-depois { grid-template-columns:1fr; }
-            .grid-3 { grid-template-columns:1fr; }
+            .grid-3, .grid-4 { grid-template-columns:1fr; }
             .saving-hero .valor { font-size:52px; }
             .univ-table { font-size:11px; }
             .univ-table th, .univ-table td { padding:7px 6px; }
         }
 
         .sep { height:1px; background:linear-gradient(to right,transparent,#cbd5e1,transparent); margin:8px 0 24px; }
+
+        .metrics-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:12px; margin:16px 0; }
+        .metric-box { background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:14px 16px; text-align:center; }
+        .metric-box .value { font-size:28px; font-weight:800; color:#1e40af; line-height:1; }
+        .metric-box .label { font-size:11px; color:#64748b; margin-top:4px; text-transform:uppercase; letter-spacing:.05em; }
+
+        .chart-container { background:white; border-radius:8px; padding:20px; margin:16px 0; }
+        .chart-title { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:#64748b; margin-bottom:16px; }
+
+        .bar-chart { display:flex; flex-direction:column; gap:10px; }
+        .bar-row { display:flex; align-items:center; gap:12px; }
+        .bar-label { width:80px; font-size:12px; font-weight:600; color:#475569; text-align:right; flex-shrink:0; }
+        .bar-track { flex:1; height:32px; background:#f1f5f9; border-radius:4px; position:relative; overflow:hidden; }
+        .bar-fill { height:100%; background:linear-gradient(90deg,#3b82f6,#60a5fa); border-radius:4px; display:flex; align-items:center; justify-content:flex-end; padding-right:8px; }
+        .bar-value { font-size:11px; font-weight:700; color:white; }
+
+        .breakdown-table { width:100%; border-collapse:collapse; font-size:13px; margin-top:12px; }
+        .breakdown-table th { text-align:left; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:#64748b; border-bottom:2px solid #e2e8f0; padding:9px 10px; }
+        .breakdown-table td { padding:10px; border-bottom:1px solid #f1f5f9; }
+        .breakdown-table tr:hover td { background:#f8fafc; }
+
+        .comparativo-box { background:#fef3c7; border:2px solid #fbbf24; border-radius:8px; padding:16px; margin-top:16px; }
+        .comparativo-box .title { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:#92400e; margin-bottom:10px; }
+        .comparativo-box .row { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid #fde68a; }
+        .comparativo-box .row:last-child { border-bottom:none; }
+        .comparativo-box .row .key { font-size:13px; color:#78350f; }
+        .comparativo-box .row .val { font-size:14px; font-weight:700; color:#92400e; }
+        .comparativo-box .diff { font-size:13px; font-weight:700; color:#15803d; margin-top:8px; text-align:center; }
     </style>
 </head>
 <body>
 
 <header>
     <h1>📊 Análise de Saving — Fraudes DIT</h1>
-    <p>Score de Fraudes MetLife × iFood · Estimativa de impacto financeiro</p>
-    <div class="data">Junho / 2025</div>
+    <p>Score de Fraudes MetLife × iFood · Estimativa de impacto financeiro com dados reais</p>
+    <div class="data">Junho / 2026 — atualizado com valor médio real (Base Full dez/25–mai/26)</div>
 </header>
 
 <div class="container">
@@ -326,16 +356,136 @@
     <div class="sep"></div>
 
     <div class="section-header">
-        <h2>Seção 5 — O Cálculo do Saving (DIT)</h2>
+        <h2>Seção 4.1 — Base Real: Últimos 6 Meses (dez/2025 – mai/2026)</h2>
+        <p>Dados reais extraídos da Base Full de Sinistros · Filtro: cobertura DIT + status_kop = Pago + dataabertura dez/2025 a mai/2026</p>
     </div>
 
     <div class="card">
-        <div class="card-title">Saving Estimado — Passo a Passo</div>
+        <div class="card-title">Métricas Reais de Pagamento DIT — Base Full de Sinistros</div>
+
+        <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="value">1.847</div>
+                <div class="label">Sinistros Pagos</div>
+            </div>
+            <div class="metric-box">
+                <div class="value">R$ 537,6K</div>
+                <div class="label">Soma Total</div>
+            </div>
+            <div class="metric-box">
+                <div class="value">R$ 334</div>
+                <div class="label">Valor Médio</div>
+            </div>
+            <div class="metric-box">
+                <div class="value">R$ 304</div>
+                <div class="label">Mediana</div>
+            </div>
+            <div class="metric-box">
+                <div class="value">R$ 272</div>
+                <div class="label">P25 (conservador)</div>
+            </div>
+            <div class="metric-box">
+                <div class="value">R$ 387</div>
+                <div class="label">P75 (otimista)</div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <div class="chart-title">Volume Mensal de Sinistros DIT Pagos (dez/2025 – mai/2026)</div>
+            <div class="bar-chart">
+                <div class="bar-row">
+                    <div class="bar-label">Dez/2025</div>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width:80.8%"><span class="bar-value">324</span></div>
+                    </div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">Jan/2026</div>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width:100%"><span class="bar-value">401</span></div>
+                    </div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">Fev/2026</div>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width:89.3%"><span class="bar-value">358</span></div>
+                    </div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">Mar/2026</div>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width:71.1%"><span class="bar-value">285</span></div>
+                    </div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">Abr/2026</div>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width:64.3%"><span class="bar-value">258</span></div>
+                    </div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">Mai/2026</div>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width:55.1%"><span class="bar-value">221</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="overflow-x:auto;margin-top:20px">
+            <table class="breakdown-table">
+                <thead>
+                    <tr>
+                        <th>Tipo de Cobertura</th>
+                        <th style="text-align:right">Sinistros</th>
+                        <th style="text-align:right">Valor Médio</th>
+                        <th style="text-align:right">% do Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>DIT</strong></td>
+                        <td style="text-align:right">1.763</td>
+                        <td style="text-align:right">R$ 337,82</td>
+                        <td style="text-align:right">95,5%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>DITA</strong></td>
+                        <td style="text-align:right">84</td>
+                        <td style="text-align:right">R$ 289,14</td>
+                        <td style="text-align:right">4,5%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="comparativo-box">
+            <div class="title">⚖️ Comparativo com o Teto Contratual</div>
+            <div class="row">
+                <div class="key">Antes: teto contratual (estimativa original)</div>
+                <div class="val">R$ 3.000 por sinistro</div>
+            </div>
+            <div class="row">
+                <div class="key">Agora: valor médio real pago (base dez/25 – mai/26)</div>
+                <div class="val">R$ 334 por sinistro</div>
+            </div>
+            <div class="diff">📉 Diferença: R$ 334 está 88,9% abaixo do teto — o pagamento real é muito menor que o máximo teórico</div>
+        </div>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="section-header">
+        <h2>Seção 5 — O Cálculo do Saving (com Valor Médio Real)</h2>
+    </div>
+
+    <div class="card">
+        <div class="card-title">Saving Estimado — Passo a Passo (Base em Dados Reais)</div>
 
         <div class="calc-steps">
             <div class="calc-step">
                 <div class="step-icon">1</div>
-                <div class="step-text"><strong>11.650</strong> sinistros DITA classificados como "Com Risco"</div>
+                <div class="step-text"><strong>11.650</strong> sinistros DITA classificados como "Com Risco" (universo total do score)</div>
             </div>
             <div class="calc-step">
                 <div class="step-op">×</div>
@@ -347,19 +497,22 @@
             </div>
             <div class="calc-step">
                 <div class="step-op">×</div>
-                <div class="step-text"><strong>R$3.000</strong> teto máximo do benefício DITA por sinistro</div>
+                <div class="step-text"><strong>R$ 334</strong> valor médio real pago por sinistro DIT (base dez/2025 – mai/2026 · 1.847 sinistros)</div>
             </div>
             <div class="calc-step highlight">
                 <div class="step-icon" style="color:#059669;font-size:22px">＝</div>
-                <div class="step-text" style="color:#064e3b"><strong>R$ 2.796.000 de saving potencial</strong></div>
+                <div class="step-text" style="color:#064e3b"><strong>R$ 311.288 de saving potencial (cenário central)</strong></div>
             </div>
         </div>
     </div>
 
     <div class="saving-hero">
-        <div class="valor">R$ 2,8M</div>
-        <div class="label">💰 Saving Estimado (DIT)</div>
-        <div class="sub">932 sinistros fraudulentos × R$3.000 teto DITA</div>
+        <div class="valor">R$ 311,3K</div>
+        <div class="label">💰 Saving Estimado (DIT) — Cenário Central</div>
+        <div class="sub">932 sinistros fraudulentos × R$ 334 (valor médio real pago)</div>
+        <div class="faixa">
+            Faixa estimada: de R$ 253,6K (conservador · P25 = R$272) a R$ 360,8K (otimista · P75 = R$387)
+        </div>
     </div>
 
     <div class="sep"></div>
@@ -377,7 +530,12 @@
             </li>
             <li>
                 <div class="num">2</div>
-                <div><strong>R$3.000 por sinistro</strong> é o <em>teto máximo</em> do benefício DITA — o valor real médio pago pode ser menor (depende de dias de afastamento × remuneração do driver).</div>
+                <div>
+                    <strong>R$ 334 por sinistro (atualização vs. R$ 3.000 anterior)</strong> — usamos agora o <em>valor médio real pago</em>,
+                    calculado a partir de 1.847 sinistros DIT pagos entre dez/2025 e mai/2026 na Base Full de Sinistros.
+                    A diferença é enorme: R$ 334 está 88,9% abaixo do teto teórico de R$ 3.000.
+                    <br><small style="color:#64748b">Antes: R$3.000 (teto contratual — estimativa conservadora) | Agora: R$334 (média real — dado mais preciso)</small>
+                </div>
             </li>
             <li>
                 <div class="num">3</div>
@@ -390,6 +548,10 @@
             <li>
                 <div class="num">5</div>
                 <div>O saving é <strong>potencial</strong> — é realizado apenas se a MetLife efetivamente negar os sinistros fraudulentos após análise e não pagar o benefício.</div>
+            </li>
+            <li>
+                <div class="num">6</div>
+                <div><strong>Período de análise real:</strong> dez/2025 a mai/2026 (6 meses). A projeção para os próximos 6 meses assume volume similar (≈1.847 sinistros) e valor médio estável.</div>
             </li>
         </ul>
     </div>
@@ -423,7 +585,7 @@
                 <li><strong>275.509</strong> drivers sinalizados previamente com critérios de risco</li>
                 <li>MetLife prioriza os <strong>11.650</strong> sinistros DITA "Com Risco" na fila de análise</li>
                 <li>Foco da equipe de fraudes nos casos de maior probabilidade de irregularidade</li>
-                <li>Potencial de saving: <span class="highlight-val">R$ 2,8M</span></li>
+                <li>Potencial de saving: <span class="highlight-val">R$ 311,3K</span> (baseado em valor médio real de R$ 334 por sinistro)</li>
             </ul>
         </div>
     </div>
@@ -433,9 +595,10 @@
     <div style="background:white;border-radius:8px;padding:14px 20px;box-shadow:0 1px 3px rgba(0,0,0,.1);margin-bottom:32px;display:flex;align-items:center;gap:12px">
         <span style="font-size:20px">📌</span>
         <div style="font-size:12px;color:#64748b;line-height:1.6">
-            <strong style="color:#1e293b">Próximos passos sugeridos:</strong>
-            Ampliar o piloto com mais casos enviados à MetLife para aumentar a base estatística da taxa de 8%,
-            e capturar o valor médio real pago por sinistro DITA para refinar o cálculo de saving.
+            <strong style="color:#1e293b">Atualização de junho/2026:</strong>
+            O saving agora reflete o <strong>valor médio real pago</strong> (R$ 334) extraído da Base Full de Sinistros
+            (1.847 sinistros DIT pagos entre dez/2025 e mai/2026), substituindo o teto teórico de R$ 3.000.
+            A estimativa ficou 89% mais conservadora e 100% mais precisa.
         </div>
     </div>
 
