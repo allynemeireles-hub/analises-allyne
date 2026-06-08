@@ -117,6 +117,7 @@
 
         .sep { height:1px; background:linear-gradient(to right,transparent,#cbd5e1,transparent); margin:8px 0 24px; }
 
+        /* Novos estilos para a seção de base real */
         .metrics-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:12px; margin:16px 0; }
         .metric-box { background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:14px 16px; text-align:center; }
         .metric-box .value { font-size:28px; font-weight:800; color:#1e40af; line-height:1; }
@@ -124,7 +125,7 @@
 
         .chart-container { background:white; border-radius:8px; padding:20px; margin:16px 0; }
         .chart-title { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:#64748b; margin-bottom:16px; }
-
+        
         .bar-chart { display:flex; flex-direction:column; gap:10px; }
         .bar-row { display:flex; align-items:center; gap:12px; }
         .bar-label { width:80px; font-size:12px; font-weight:600; color:#475569; text-align:right; flex-shrink:0; }
@@ -151,7 +152,7 @@
 <header>
     <h1>📊 Análise de Saving — Fraudes DIT</h1>
     <p>Score de Fraudes MetLife × iFood · Estimativa de impacto financeiro com dados reais</p>
-    <div class="data">Junho / 2026 — atualizado com valor médio real (Base Full dez/25–mai/26)</div>
+    <div class="data">Junho / 2026</div>
 </header>
 
 <div class="container">
@@ -169,17 +170,15 @@
         </p>
         <br>
         <p class="problema-text">
-            O benefício <strong>DITA</strong> tem teto de
-            <span class="teto-badge">R$3.000 por sinistro</span>,
-            calculado por dias de afastamento × remuneração média dos últimos 30 dias — mas nunca
-            ultrapassando esse teto. Em fraudes onde o afastamento inteiro é fictício, o prejuízo
-            pode atingir o valor máximo.
+            O benefício atual do DIT tem teto de <strong>R$3.000 por sinistro</strong>, calculado por dias de
+            afastamento × remuneração média dos últimos 30 dias — mas nunca ultrapassando esse teto. Em fraudes
+            onde o afastamento inteiro é fictício, o prejuízo pode atingir o valor máximo.
         </p>
         <br>
         <p class="problema-text">
             O <strong>Score de Fraudes DIT</strong> foi desenvolvido para identificar esses drivers
             <em>antes ou durante</em> a análise da MetLife, permitindo priorizar casos de alto risco
-            e poupar recursos de análise.
+            e poupar recursos.
         </p>
     </div>
 
@@ -357,12 +356,12 @@
 
     <div class="section-header">
         <h2>Seção 4.1 — Base Real: Últimos 6 Meses (dez/2025 – mai/2026)</h2>
-        <p>Dados reais extraídos da Base Full de Sinistros · Filtro: cobertura DIT + status_kop = Pago + dataabertura dez/2025 a mai/2026</p>
+        <p>Dados reais extraídos da Base Full de Sinistros, filtrados por: DIT pago + período dez/2025 a mai/2026</p>
     </div>
 
     <div class="card">
-        <div class="card-title">Métricas Reais de Pagamento DIT — Base Full de Sinistros</div>
-
+        <div class="card-title">Métricas Reais de Pagamento DIT</div>
+        
         <div class="metrics-grid">
             <div class="metric-box">
                 <div class="value">1.847</div>
@@ -380,14 +379,7 @@
                 <div class="value">R$ 304</div>
                 <div class="label">Mediana</div>
             </div>
-            <div class="metric-box">
-                <div class="value">R$ 272</div>
-                <div class="label">P25 (conservador)</div>
-            </div>
-            <div class="metric-box">
-                <div class="value">R$ 387</div>
-                <div class="label">P75 (otimista)</div>
-            </div>
+
         </div>
 
         <div class="chart-container">
@@ -436,7 +428,7 @@
             <table class="breakdown-table">
                 <thead>
                     <tr>
-                        <th>Tipo de Cobertura</th>
+                        <th>Cobertura</th>
                         <th style="text-align:right">Sinistros</th>
                         <th style="text-align:right">Valor Médio</th>
                         <th style="text-align:right">% do Total</th>
@@ -445,32 +437,14 @@
                 <tbody>
                     <tr>
                         <td><strong>DIT</strong></td>
-                        <td style="text-align:right">1.763</td>
-                        <td style="text-align:right">R$ 337,82</td>
-                        <td style="text-align:right">95,5%</td>
-                    </tr>
-                    <tr>
-                        <td><strong>DITA</strong></td>
-                        <td style="text-align:right">84</td>
-                        <td style="text-align:right">R$ 289,14</td>
-                        <td style="text-align:right">4,5%</td>
+                        <td style="text-align:right">1.847</td>
+                        <td style="text-align:right">R$ 334,00</td>
+                        <td style="text-align:right">100%</td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        <div class="comparativo-box">
-            <div class="title">⚖️ Comparativo com o Teto Contratual</div>
-            <div class="row">
-                <div class="key">Antes: teto contratual (estimativa original)</div>
-                <div class="val">R$ 3.000 por sinistro</div>
-            </div>
-            <div class="row">
-                <div class="key">Agora: valor médio real pago (base dez/25 – mai/26)</div>
-                <div class="val">R$ 334 por sinistro</div>
-            </div>
-            <div class="diff">📉 Diferença: R$ 334 está 88,9% abaixo do teto — o pagamento real é muito menor que o máximo teórico</div>
-        </div>
     </div>
 
     <div class="sep"></div>
@@ -497,7 +471,7 @@
             </div>
             <div class="calc-step">
                 <div class="step-op">×</div>
-                <div class="step-text"><strong>R$ 334</strong> valor médio real pago por sinistro DIT (base dez/2025 – mai/2026 · 1.847 sinistros)</div>
+                <div class="step-text"><strong>R$ 334</strong> valor médio real pago por sinistro DIT (base dez/2025 – mai/2026)</div>
             </div>
             <div class="calc-step highlight">
                 <div class="step-icon" style="color:#059669;font-size:22px">＝</div>
@@ -508,10 +482,13 @@
 
     <div class="saving-hero">
         <div class="valor">R$ 311,3K</div>
-        <div class="label">💰 Saving Estimado (DIT) — Cenário Central</div>
+        <div class="label">💰 Saving Estimado (DIT) — Cenário Central *</div>
         <div class="sub">932 sinistros fraudulentos × R$ 334 (valor médio real pago)</div>
         <div class="faixa">
-            Faixa estimada: de R$ 253,6K (conservador · P25 = R$272) a R$ 360,8K (otimista · P75 = R$387)
+            Faixa estimada: de R$ 253,6K (conservador, P25) a R$ 360,8K (otimista, P75)
+        </div>
+        <div style="margin-top:14px;font-size:11px;color:rgba(255,255,255,0.6);line-height:1.5">
+            *Projeção para os próximos 6 meses, considerando o DIT nas regras atuais.
         </div>
     </div>
 
@@ -530,12 +507,7 @@
             </li>
             <li>
                 <div class="num">2</div>
-                <div>
-                    <strong>R$ 334 por sinistro (atualização vs. R$ 3.000 anterior)</strong> — usamos agora o <em>valor médio real pago</em>,
-                    calculado a partir de 1.847 sinistros DIT pagos entre dez/2025 e mai/2026 na Base Full de Sinistros.
-                    A diferença é enorme: R$ 334 está 88,9% abaixo do teto teórico de R$ 3.000.
-                    <br><small style="color:#64748b">Antes: R$3.000 (teto contratual — estimativa conservadora) | Agora: R$334 (média real — dado mais preciso)</small>
-                </div>
+                <div><strong>R$ 334 por sinistro</strong> — valor médio real pago, calculado a partir de 1.847 sinistros DIT pagos entre dez/2025 e mai/2026 na Base Full.</div>
             </li>
             <li>
                 <div class="num">3</div>
@@ -551,7 +523,7 @@
             </li>
             <li>
                 <div class="num">6</div>
-                <div><strong>Período de análise real:</strong> dez/2025 a mai/2026 (6 meses). A projeção para os próximos 6 meses assume volume similar (≈1.847 sinistros) e valor médio estável.</div>
+                <div><strong>Período de análise real:</strong> dez/2025 a mai/2026 (6 meses).</div>
             </li>
         </ul>
     </div>
@@ -585,22 +557,12 @@
                 <li><strong>275.509</strong> drivers sinalizados previamente com critérios de risco</li>
                 <li>MetLife prioriza os <strong>11.650</strong> sinistros DITA "Com Risco" na fila de análise</li>
                 <li>Foco da equipe de fraudes nos casos de maior probabilidade de irregularidade</li>
-                <li>Potencial de saving: <span class="highlight-val">R$ 311,3K</span> (baseado em valor médio real de R$ 334 por sinistro)</li>
+                <li>Potencial de saving: <span class="highlight-val">R$ 311,3K</span> (baseado em valor médio real de R$ 334)</li>
             </ul>
         </div>
     </div>
 
     <br>
-
-    <div style="background:white;border-radius:8px;padding:14px 20px;box-shadow:0 1px 3px rgba(0,0,0,.1);margin-bottom:32px;display:flex;align-items:center;gap:12px">
-        <span style="font-size:20px">📌</span>
-        <div style="font-size:12px;color:#64748b;line-height:1.6">
-            <strong style="color:#1e293b">Atualização de junho/2026:</strong>
-            O saving agora reflete o <strong>valor médio real pago</strong> (R$ 334) extraído da Base Full de Sinistros
-            (1.847 sinistros DIT pagos entre dez/2025 e mai/2026), substituindo o teto teórico de R$ 3.000.
-            A estimativa ficou 89% mais conservadora e 100% mais precisa.
-        </div>
-    </div>
 
 </div>
 
