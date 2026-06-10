@@ -117,15 +117,34 @@
 
         .sep { height:1px; background:linear-gradient(to right,transparent,#cbd5e1,transparent); margin:8px 0 24px; }
 
+        /* Novos estilos para a seção de base real */
         .metrics-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:12px; margin:16px 0; }
         .metric-box { background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:14px 16px; text-align:center; }
         .metric-box .value { font-size:28px; font-weight:800; color:#1e40af; line-height:1; }
         .metric-box .label { font-size:11px; color:#64748b; margin-top:4px; text-transform:uppercase; letter-spacing:.05em; }
 
+        .chart-container { background:white; border-radius:8px; padding:20px; margin:16px 0; }
+        .chart-title { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:#64748b; margin-bottom:16px; }
+        
+        .bar-chart { display:flex; flex-direction:column; gap:10px; }
+        .bar-row { display:flex; align-items:center; gap:12px; }
+        .bar-label { width:80px; font-size:12px; font-weight:600; color:#475569; text-align:right; flex-shrink:0; }
+        .bar-track { flex:1; height:32px; background:#f1f5f9; border-radius:4px; position:relative; overflow:hidden; }
+        .bar-fill { height:100%; background:linear-gradient(90deg,#3b82f6,#60a5fa); border-radius:4px; display:flex; align-items:center; justify-content:flex-end; padding-right:8px; }
+        .bar-value { font-size:11px; font-weight:700; color:white; }
+
         .breakdown-table { width:100%; border-collapse:collapse; font-size:13px; margin-top:12px; }
         .breakdown-table th { text-align:left; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:#64748b; border-bottom:2px solid #e2e8f0; padding:9px 10px; }
         .breakdown-table td { padding:10px; border-bottom:1px solid #f1f5f9; }
         .breakdown-table tr:hover td { background:#f8fafc; }
+
+        .comparativo-box { background:#fef3c7; border:2px solid #fbbf24; border-radius:8px; padding:16px; margin-top:16px; }
+        .comparativo-box .title { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:#92400e; margin-bottom:10px; }
+        .comparativo-box .row { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid #fde68a; }
+        .comparativo-box .row:last-child { border-bottom:none; }
+        .comparativo-box .row .key { font-size:13px; color:#78350f; }
+        .comparativo-box .row .val { font-size:14px; font-weight:700; color:#92400e; }
+        .comparativo-box .diff { font-size:13px; font-weight:700; color:#15803d; margin-top:8px; text-align:center; }
     </style>
 </head>
 <body>
@@ -133,6 +152,7 @@
 <header>
     <h1>📊 Análise de Saving — Fraudes DIT</h1>
     <p>Score de Fraudes MetLife × iFood · Estimativa de impacto financeiro com dados reais</p>
+    
 </header>
 
 <div class="container">
@@ -254,7 +274,8 @@
                         <th style="text-align:right">Bloqueio Crítico</th>
                         <th style="text-align:right">Denunciados</th>
                         <th style="text-align:right">Retorno Irregular</th>
-                        <th style="text-align:right">Com Sinistro</th>
+                        <th style="text-align:right">Incidência ≥3x</th>
+                        <th style="text-align:right">Múlt. Acidentes</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -266,7 +287,8 @@
                         <td style="text-align:right;color:#94a3b8">0</td>
                         <td style="text-align:right;color:#94a3b8">0</td>
                         <td style="text-align:right;color:#94a3b8">0</td>
-                        <td style="text-align:right">312</td>
+                        <td style="text-align:right;color:#94a3b8">—</td>
+                        <td style="text-align:right;color:#94a3b8">—</td>
                     </tr>
                     <tr class="row-risco">
                         <td><strong>🔴 Com Risco</strong></td>
@@ -276,7 +298,8 @@
                         <td style="text-align:right">25 <span class="badge-pct">0,01%</span></td>
                         <td style="text-align:right">69.869 <span class="badge-pct">25%</span></td>
                         <td style="text-align:right">7.900 <span class="badge-pct">3%</span></td>
-                        <td style="text-align:right;color:#b91c1c;font-weight:700">463 <span class="badge-pct green">0,2%</span></td>
+                        <td style="text-align:right">— <span class="badge-pct" style="background:#fef3c7;color:#92400e">pendente</span></td>
+                        <td style="text-align:right">— <span class="badge-pct" style="background:#fef3c7;color:#92400e">pendente</span></td>
                     </tr>
                 </tbody>
             </table>
@@ -287,6 +310,7 @@
             <div class="info">
                 <strong>da base total de entregadores é classificada como Com Risco</strong>
                 <br><small>275.509 Com Risco ÷ 10.759.958 total = 2,56%</small>
+                <br><small style="color:#b91c1c;font-weight:600">⚠️ 463 drivers Com Risco possuem ao menos 1 sinistro DITA ativo. | Incidência ≥3x e Múlt. Acidentes: dados pendentes de extração.</small>
             </div>
         </div>
     </div>
@@ -338,7 +362,7 @@
 
     <div class="card">
         <div class="card-title">Métricas Reais de Pagamento DIT</div>
-
+        
         <div class="metrics-grid">
             <div class="metric-box">
                 <div class="value">1.847</div>
@@ -356,7 +380,9 @@
                 <div class="value">R$ 304</div>
                 <div class="label">Mediana</div>
             </div>
+
         </div>
+
 
         <div style="overflow-x:auto;margin-top:20px">
             <table class="breakdown-table">
@@ -365,6 +391,7 @@
                         <th>Tipo de Cobertura</th>
                         <th style="text-align:right">Sinistros</th>
                         <th style="text-align:right">Valor Médio</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -372,10 +399,12 @@
                         <td><strong>DIT</strong></td>
                         <td style="text-align:right">1.847</td>
                         <td style="text-align:right">R$ 334,00</td>
+                        
                     </tr>
                 </tbody>
             </table>
         </div>
+
     </div>
 
     <div class="sep"></div>
@@ -418,6 +447,7 @@
         <div class="faixa">
             Faixa estimada: de R$ 40,3K (conservador) a R$ 57,3K (otimista)
         </div>
+
     </div>
 
     <div class="sep"></div>
@@ -491,6 +521,8 @@
     </div>
 
     <br>
+
+
 
 </div>
 
