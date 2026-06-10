@@ -7,47 +7,33 @@
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
         body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:#f1f5f9; color:#1e293b; }
-
         header { background:linear-gradient(135deg,#1e293b,#334155); color:white; padding:28px 20px; text-align:center; }
         header h1 { font-size:22px; font-weight:700; margin-bottom:6px; }
         header p { font-size:12px; opacity:.92; margin-bottom:2px; }
-        header .data { font-size:11px; opacity:.75; margin-top:6px; }
-
         .container { max-width:1100px; margin:24px auto; padding:0 16px; }
-
         .section-header { margin:28px 0 12px; }
         .section-header h2 { font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:#1e40af; border-left:4px solid #1e40af; padding-left:10px; line-height:1.4; }
         .section-header p { font-size:13px; color:#475569; margin-top:6px; line-height:1.6; }
-
         .card { background:white; border-radius:8px; padding:20px; margin-bottom:16px; box-shadow:0 1px 3px rgba(0,0,0,.1); }
         .card-title { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:#64748b; margin-bottom:14px; }
-
-        .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-        .grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
-        .grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
-
         .problema-text { font-size:14px; line-height:1.7; color:#334155; }
         .problema-text strong { color:#1e293b; }
-        .teto-badge { display:inline-block; background:#fef3c7; color:#92400e; font-weight:700; padding:2px 8px; border-radius:4px; font-size:13px; }
-
         .funil { display:flex; flex-direction:column; align-items:center; gap:0; margin:16px 0; }
         .funil-stage { width:100%; max-width:680px; text-align:center; }
         .funil-box { border-radius:8px; padding:18px 24px; display:flex; align-items:center; justify-content:space-between; }
-        .funil-box.total  { background:#e0e7ff; border:2px solid #6366f1; }
-        .funil-box.mid    { background:#dbeafe; border:2px solid #3b82f6; }
-        .funil-box.final  { background:#d1fae5; border:2px solid #059669; }
+        .funil-box.total { background:#e0e7ff; border:2px solid #6366f1; }
+        .funil-box.mid { background:#dbeafe; border:2px solid #3b82f6; }
+        .funil-box.final { background:#d1fae5; border:2px solid #059669; }
         .funil-num { font-size:38px; font-weight:800; color:#1e293b; }
         .funil-label { font-size:13px; color:#475569; text-align:left; line-height:1.4; }
         .funil-label strong { display:block; font-size:15px; color:#1e293b; }
         .funil-arrow { text-align:center; padding:6px 0; font-size:22px; color:#94a3b8; line-height:1; }
         .taxa-badge { display:inline-block; background:#059669; color:white; font-weight:700; font-size:18px; padding:6px 16px; border-radius:20px; margin:4px 0; }
         .funil-note { font-size:12px; color:#64748b; background:#f8fafc; border-left:3px solid #94a3b8; padding:10px 14px; border-radius:0 6px 6px 0; margin-top:16px; line-height:1.6; }
-
         .indicios-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(160px,1fr)); gap:10px; margin-top:12px; }
         .indicio-card { background:#fef2f2; border:1px solid #fecaca; border-radius:8px; padding:14px; text-align:center; }
         .indicio-card .num { font-size:32px; font-weight:800; color:#b91c1c; }
         .indicio-card .desc { font-size:11px; color:#7f1d1d; margin-top:4px; line-height:1.4; }
-
         .univ-table { width:100%; border-collapse:collapse; font-size:13px; margin-top:8px; }
         .univ-table th { text-align:left; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:#64748b; border-bottom:2px solid #e2e8f0; padding:9px 10px; }
         .univ-table td { padding:10px 10px; border-bottom:1px solid #f1f5f9; }
@@ -58,12 +44,10 @@
         .row-semrisco td:first-child { color:#64748b; }
         .badge-pct { display:inline-block; background:#e0e7ff; color:#3730a3; font-size:10px; font-weight:600; padding:1px 5px; border-radius:3px; margin-left:4px; }
         .badge-pct.green { background:#dcfce7; color:#166534; }
-
         .destaque-pct { background:linear-gradient(135deg,#eff6ff,#dbeafe); border:1px solid #93c5fd; border-radius:8px; padding:16px 20px; margin-top:12px; display:flex; align-items:center; gap:16px; }
         .destaque-pct .big { font-size:42px; font-weight:800; color:#1e40af; }
         .destaque-pct .info { font-size:13px; color:#1e40af; line-height:1.5; }
         .destaque-pct .info small { font-size:11px; color:#64748b; }
-
         .fluxo { display:flex; flex-direction:column; align-items:flex-start; gap:0; margin:12px 0; }
         .fluxo-item { display:flex; align-items:flex-start; gap:14px; width:100%; }
         .fluxo-item .fluxo-num { background:#1e40af; color:white; border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:13px; flex-shrink:0; margin-top:2px; }
@@ -72,7 +56,6 @@
         .fluxo-item .fluxo-body .value { font-size:26px; font-weight:800; color:#1e293b; }
         .fluxo-item .fluxo-body .label { font-size:13px; color:#475569; margin-top:2px; }
         .fluxo-nota { font-size:12px; color:#64748b; background:#f8fafc; border-left:3px solid #cbd5e1; padding:10px 14px; border-radius:0 6px 6px 0; margin-top:4px; line-height:1.6; }
-
         .calc-steps { display:flex; flex-direction:column; gap:6px; margin:12px 0; }
         .calc-step { display:flex; align-items:center; gap:12px; padding:12px 16px; background:#f8fafc; border-radius:8px; border:1px solid #e2e8f0; }
         .calc-step .step-icon { font-size:18px; font-weight:700; color:#94a3b8; width:28px; text-align:center; flex-shrink:0; }
@@ -81,18 +64,15 @@
         .calc-step.highlight { background:#d1fae5; border-color:#6ee7b7; }
         .calc-step.highlight .step-text { color:#064e3b; font-weight:700; font-size:16px; }
         .calc-step .step-op { font-size:20px; font-weight:700; color:#94a3b8; width:28px; text-align:center; flex-shrink:0; }
-
         .saving-hero { background:linear-gradient(135deg,#064e3b,#065f46); border-radius:12px; padding:32px; text-align:center; color:white; margin:16px 0; box-shadow:0 4px 12px rgba(6,95,70,.3); }
         .saving-hero .valor { font-size:72px; font-weight:800; color:#34d399; line-height:1; margin-bottom:8px; }
         .saving-hero .label { font-size:16px; font-weight:600; opacity:.95; margin-bottom:6px; }
         .saving-hero .sub { font-size:13px; opacity:.75; }
         .saving-hero .faixa { font-size:12px; opacity:.75; margin-top:8px; }
-
         .premissas-list { list-style:none; display:flex; flex-direction:column; gap:10px; }
         .premissas-list li { display:flex; gap:12px; align-items:flex-start; font-size:13px; color:#334155; line-height:1.6; }
         .premissas-list li .num { background:#1e40af; color:white; border-radius:4px; width:22px; height:22px; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; flex-shrink:0; margin-top:2px; }
         .premissas-list li strong { color:#1e293b; }
-
         .antes-depois { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
         .ad-card { border-radius:10px; padding:20px; }
         .ad-card.antes { background:#fef2f2; border:1.5px solid #fecaca; }
@@ -106,45 +86,21 @@
         .ad-card.antes .ad-list li::before { color:#b91c1c; }
         .ad-card.depois .ad-list li::before { color:#15803d; }
         .ad-card.depois .highlight-val { color:#059669; font-weight:700; font-size:14px; }
-
         @media(max-width:680px) {
-            .grid-2, .antes-depois { grid-template-columns:1fr; }
-            .grid-3, .grid-4 { grid-template-columns:1fr; }
+            .antes-depois { grid-template-columns:1fr; }
             .saving-hero .valor { font-size:52px; }
             .univ-table { font-size:11px; }
             .univ-table th, .univ-table td { padding:7px 6px; }
         }
-
         .sep { height:1px; background:linear-gradient(to right,transparent,#cbd5e1,transparent); margin:8px 0 24px; }
-
-        /* Novos estilos para a seção de base real */
         .metrics-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:12px; margin:16px 0; }
         .metric-box { background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:14px 16px; text-align:center; }
         .metric-box .value { font-size:28px; font-weight:800; color:#1e40af; line-height:1; }
         .metric-box .label { font-size:11px; color:#64748b; margin-top:4px; text-transform:uppercase; letter-spacing:.05em; }
-
-        .chart-container { background:white; border-radius:8px; padding:20px; margin:16px 0; }
-        .chart-title { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:#64748b; margin-bottom:16px; }
-        
-        .bar-chart { display:flex; flex-direction:column; gap:10px; }
-        .bar-row { display:flex; align-items:center; gap:12px; }
-        .bar-label { width:80px; font-size:12px; font-weight:600; color:#475569; text-align:right; flex-shrink:0; }
-        .bar-track { flex:1; height:32px; background:#f1f5f9; border-radius:4px; position:relative; overflow:hidden; }
-        .bar-fill { height:100%; background:linear-gradient(90deg,#3b82f6,#60a5fa); border-radius:4px; display:flex; align-items:center; justify-content:flex-end; padding-right:8px; }
-        .bar-value { font-size:11px; font-weight:700; color:white; }
-
         .breakdown-table { width:100%; border-collapse:collapse; font-size:13px; margin-top:12px; }
         .breakdown-table th { text-align:left; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:#64748b; border-bottom:2px solid #e2e8f0; padding:9px 10px; }
         .breakdown-table td { padding:10px; border-bottom:1px solid #f1f5f9; }
         .breakdown-table tr:hover td { background:#f8fafc; }
-
-        .comparativo-box { background:#fef3c7; border:2px solid #fbbf24; border-radius:8px; padding:16px; margin-top:16px; }
-        .comparativo-box .title { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:#92400e; margin-bottom:10px; }
-        .comparativo-box .row { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid #fde68a; }
-        .comparativo-box .row:last-child { border-bottom:none; }
-        .comparativo-box .row .key { font-size:13px; color:#78350f; }
-        .comparativo-box .row .val { font-size:14px; font-weight:700; color:#92400e; }
-        .comparativo-box .diff { font-size:13px; font-weight:700; color:#15803d; margin-top:8px; text-align:center; }
     </style>
 </head>
 <body>
@@ -152,70 +108,40 @@
 <header>
     <h1>📊 Análise de Saving — Fraudes DIT</h1>
     <p>Score de Fraudes MetLife × iFood · Estimativa de impacto financeiro com dados reais</p>
-    
 </header>
 
 <div class="container">
 
-    <div class="section-header">
-        <h2>Seção 1 — Contexto: O Problema</h2>
-    </div>
-
+    <div class="section-header"><h2>Seção 1 — Contexto: O Problema</h2></div>
     <div class="card">
         <div class="card-title">Por que existe um Score de Fraudes?</div>
-        <p class="problema-text">
-            Entregadores podem fraudar sinistros de <strong>DIT — Diária por Incapacidade Temporária</strong>
-            acionando o benefício sem ter sofrido acidente real, ou voltando a trabalhar muito antes do
-            término do afastamento declarado. Nesses casos, a MetLife paga um benefício indevido.
-        </p>
+        <p class="problema-text">Entregadores podem fraudar sinistros de <strong>DIT — Diária por Incapacidade Temporária</strong> acionando o benefício sem ter sofrido acidente real, ou voltando a trabalhar muito antes do término do afastamento declarado. Nesses casos, a MetLife paga um benefício indevido.</p>
         <br>
-        <p class="problema-text">
-            O benefício atual do DIT tem teto de <strong>R$3.000 por sinistro</strong>, calculado por dias de
-            afastamento × remuneração média dos últimos 30 dias — mas nunca ultrapassando esse teto. Em fraudes
-            onde o afastamento inteiro é fictício, o prejuízo pode atingir o valor máximo.
-        </p>
+        <p class="problema-text">O benefício atual do DIT tem teto de <strong>R$3.000 por sinistro</strong>, calculado por dias de afastamento × remuneração média dos últimos 30 dias — mas nunca ultrapassando esse teto. Em fraudes onde o afastamento inteiro é fictício, o prejuízo pode atingir o valor máximo.</p>
         <br>
-        <p class="problema-text">
-            O <strong>Score de Fraudes DIT</strong> foi desenvolvido para identificar esses drivers
-            <em>antes ou durante</em> a análise da MetLife, permitindo priorizar casos de alto risco
-            e poupar recursos.
-        </p>
+        <p class="problema-text">O <strong>Score de Fraudes DIT</strong> foi desenvolvido para identificar esses drivers <em>antes ou durante</em> a análise da MetLife, permitindo priorizar casos de alto risco e poupar recursos.</p>
     </div>
 
     <div class="sep"></div>
 
-    <div class="section-header">
-        <h2>Seção 2 — O Piloto: Como Chegamos à Taxa de 8%</h2>
-    </div>
-
+    <div class="section-header"><h2>Seção 2 — O Piloto: Como Chegamos à Taxa de 8%</h2></div>
     <div class="card">
         <div class="card-title">Funil do Piloto — Validação do Score</div>
-
         <div class="funil">
             <div class="funil-stage">
                 <div class="funil-box total">
                     <div class="funil-num">200</div>
-                    <div class="funil-label">
-                        <strong>casos enviados à MetLife</strong>
-                        casos sinalizados pelo score e encaminhados para análise
-                    </div>
+                    <div class="funil-label"><strong>casos enviados à MetLife</strong>casos sinalizados pelo score e encaminhados para análise</div>
                 </div>
             </div>
-
             <div class="funil-arrow">↓</div>
-
             <div class="funil-stage">
                 <div class="funil-box mid">
                     <div class="funil-num">59</div>
-                    <div class="funil-label">
-                        <strong>casos efetivamente analisados</strong>
-                        30% de aproveitamento — MetLife processou apenas parte dos enviados
-                    </div>
+                    <div class="funil-label"><strong>casos efetivamente analisados</strong>30% de aproveitamento — MetLife processou apenas parte dos enviados</div>
                 </div>
             </div>
-
             <div class="funil-arrow">↓</div>
-
             <div class="funil-stage">
                 <div class="funil-box final">
                     <div class="funil-num" style="color:#059669">5</div>
@@ -227,28 +153,13 @@
                 </div>
             </div>
         </div>
-
-        <div class="funil-note">
-            <strong>Por que 8% e não 2,5%?</strong> A taxa é calculada sobre os <strong>59 casos que a MetLife efetivamente analisou</strong>,
-            não sobre os 200 enviados. Isso é importante: ela reflete a <em>precisão do score sobre casos em análise real</em>.
-            Os outros 141 casos não foram analisados — não significa que não eram fraudes.
-        </div>
-
+        <div class="funil-note"><strong>Por que 8% e não 2,5%?</strong> A taxa é calculada sobre os <strong>59 casos que a MetLife efetivamente analisou</strong>, não sobre os 200 enviados. Isso é importante: ela reflete a <em>precisão do score sobre casos em análise real</em>. Os outros 141 casos não foram analisados — não significa que não eram fraudes.</div>
         <div style="margin-top:20px">
             <div class="card-title">Detalhamento dos 5 Indícios Confirmados</div>
             <div class="indicios-grid">
-                <div class="indicio-card">
-                    <div class="num">2</div>
-                    <div class="desc">Atestados rasurados</div>
-                </div>
-                <div class="indicio-card">
-                    <div class="num">2</div>
-                    <div class="desc">Acidentes similares no mesmo médico / clínica / UPA</div>
-                </div>
-                <div class="indicio-card">
-                    <div class="num">1</div>
-                    <div class="desc">CRM rasurado</div>
-                </div>
+                <div class="indicio-card"><div class="num">2</div><div class="desc">Atestados rasurados</div></div>
+                <div class="indicio-card"><div class="num">2</div><div class="desc">Acidentes similares no mesmo médico / clínica / UPA</div></div>
+                <div class="indicio-card"><div class="num">1</div><div class="desc">CRM rasurado</div></div>
             </div>
             <p style="font-size:12px;color:#64748b;margin-top:10px">Todos os 5 indícios vieram de atestados médicos suspeitos — o principal vetor de fraude documentado no piloto.</p>
         </div>
@@ -256,13 +167,9 @@
 
     <div class="sep"></div>
 
-    <div class="section-header">
-        <h2>Seção 3 — A Base Total: Universo Classificado pelo Score</h2>
-    </div>
-
+    <div class="section-header"><h2>Seção 3 — A Base Total: Universo Classificado pelo Score</h2></div>
     <div class="card">
-        <div class="card-title">Universo de Entregadores Classificados pelo Score</div>
-
+        <div class="card-title">Universo de Entregadores Classificados pelo Score (7 Critérios)</div>
         <div style="overflow-x:auto">
             <table class="univ-table">
                 <thead>
@@ -273,7 +180,7 @@
                         <th style="text-align:right">Fake Modal</th>
                         <th style="text-align:right">Bloqueio Crítico</th>
                         <th style="text-align:right">Denunciados</th>
-                        <th style="text-align:right">Retorno Irregular</th>
+                        <th style="text-align:right">Ret. Irregular</th>
                         <th style="text-align:right">Incidência ≥3x</th>
                         <th style="text-align:right">Múlt. Acidentes</th>
                     </tr>
@@ -298,32 +205,27 @@
                         <td style="text-align:right">25 <span class="badge-pct">0,01%</span></td>
                         <td style="text-align:right">69.869 <span class="badge-pct">25%</span></td>
                         <td style="text-align:right">7.900 <span class="badge-pct">3%</span></td>
-                        <td style="text-align:right">— <span class="badge-pct" style="background:#fef3c7;color:#92400e">pendente</span></td>
-                        <td style="text-align:right">— <span class="badge-pct" style="background:#fef3c7;color:#92400e">pendente</span></td>
+                        <td style="text-align:right">1.929 <span class="badge-pct">0,7%</span></td>
+                        <td style="text-align:right">77 <span class="badge-pct">0,03%</span></td>
                     </tr>
                 </tbody>
             </table>
         </div>
-
         <div class="destaque-pct">
             <div class="big">2,56%</div>
             <div class="info">
                 <strong>da base total de entregadores é classificada como Com Risco</strong>
                 <br><small>275.509 Com Risco ÷ 10.759.958 total = 2,56%</small>
-                <br><small style="color:#b91c1c;font-weight:600">⚠️ 463 drivers Com Risco possuem ao menos 1 sinistro DITA ativo. | Incidência ≥3x e Múlt. Acidentes: dados pendentes de extração.</small>
+                <br><small>463 drivers Com Risco possuem ao menos 1 sinistro DITA ativo</small>
             </div>
         </div>
     </div>
 
     <div class="sep"></div>
 
-    <div class="section-header">
-        <h2>Seção 4 — Afunilando para DIT: Quem Acionou o Benefício?</h2>
-    </div>
-
+    <div class="section-header"><h2>Seção 4 — Afunilando para DIT: Quem Acionou o Benefício?</h2></div>
     <div class="card">
         <div class="card-title">Dentro dos Com Risco: Quem Acionou DIT?</div>
-
         <div class="fluxo">
             <div class="fluxo-item">
                 <div class="fluxo-num">①</div>
@@ -347,10 +249,7 @@
                 </div>
             </div>
         </div>
-
-        <div class="fluxo-nota">
-            Para o cálculo de saving, adotamos os <strong>1.847 sinistros DIT efetivamente pagos</strong> no período dez/2025–mai/2026 (Base Full de Sinistros). Esse recorte é mais preciso do que o universo histórico total do score, pois reflete o volume real do período de referência.
-        </div>
+        <div class="fluxo-nota">Para o cálculo de saving, adotamos os <strong>1.847 sinistros DIT efetivamente pagos</strong> no período dez/2025–mai/2026 (Base Full de Sinistros). Esse recorte é mais preciso do que o universo histórico total do score, pois reflete o volume real do período de referência.</div>
     </div>
 
     <div class="sep"></div>
@@ -359,31 +258,14 @@
         <h2>Seção 4.1 — Base Real: Últimos 6 Meses (dez/2025 – mai/2026)</h2>
         <p>Dados reais extraídos da Base Full de Sinistros, filtrados por: DIT pago + período dez/2025 a mai/2026</p>
     </div>
-
     <div class="card">
         <div class="card-title">Métricas Reais de Pagamento DIT</div>
-        
         <div class="metrics-grid">
-            <div class="metric-box">
-                <div class="value">1.847</div>
-                <div class="label">Sinistros Pagos</div>
-            </div>
-            <div class="metric-box">
-                <div class="value">R$ 537,6K</div>
-                <div class="label">Soma Total</div>
-            </div>
-            <div class="metric-box">
-                <div class="value">R$ 334</div>
-                <div class="label">Valor Médio</div>
-            </div>
-            <div class="metric-box">
-                <div class="value">R$ 304</div>
-                <div class="label">Mediana</div>
-            </div>
-
+            <div class="metric-box"><div class="value">1.847</div><div class="label">Sinistros Pagos</div></div>
+            <div class="metric-box"><div class="value">R$ 537,6K</div><div class="label">Soma Total</div></div>
+            <div class="metric-box"><div class="value">R$ 334</div><div class="label">Valor Médio</div></div>
+            <div class="metric-box"><div class="value">R$ 304</div><div class="label">Mediana</div></div>
         </div>
-
-
         <div style="overflow-x:auto;margin-top:20px">
             <table class="breakdown-table">
                 <thead>
@@ -391,7 +273,6 @@
                         <th>Tipo de Cobertura</th>
                         <th style="text-align:right">Sinistros</th>
                         <th style="text-align:right">Valor Médio</th>
-                        
                     </tr>
                 </thead>
                 <tbody>
@@ -399,23 +280,17 @@
                         <td><strong>DIT</strong></td>
                         <td style="text-align:right">1.847</td>
                         <td style="text-align:right">R$ 334,00</td>
-                        
                     </tr>
                 </tbody>
             </table>
         </div>
-
     </div>
 
     <div class="sep"></div>
 
-    <div class="section-header">
-        <h2>Seção 5 — O Cálculo do Saving (com Valor Médio Real)</h2>
-    </div>
-
+    <div class="section-header"><h2>Seção 5 — O Cálculo do Saving (com Valor Médio Real)</h2></div>
     <div class="card">
         <div class="card-title">Saving Estimado — Passo a Passo (Base em Dados Reais)</div>
-
         <div class="calc-steps">
             <div class="calc-step">
                 <div class="step-icon">1</div>
@@ -444,60 +319,30 @@
         <div class="valor">R$ 49,4K</div>
         <div class="label">💰 Saving Estimado (DIT) — Cenário Central</div>
         <div class="sub">148 sinistros fraudulentos × R$ 334 (valor médio real pago)</div>
-        <div class="faixa">
-            Faixa estimada: de R$ 40,3K (conservador) a R$ 57,3K (otimista)
-        </div>
-
+        <div class="faixa">Faixa estimada: de R$ 40,3K (conservador) a R$ 57,3K (otimista)</div>
     </div>
 
     <div class="sep"></div>
 
-    <div class="section-header">
-        <h2>Seção 6 — Premissas do Cálculo</h2>
-    </div>
-
+    <div class="section-header"><h2>Seção 6 — Premissas do Cálculo</h2></div>
     <div class="card">
         <div class="card-title">O que está por trás dos números</div>
         <ul class="premissas-list">
-            <li>
-                <div class="num">1</div>
-                <div><strong>Taxa de fraude de 8%</strong> baseada em piloto de 59 casos analisados — amostra pequena; pode variar com volume maior e com diferentes perfis de caso.</div>
-            </li>
-            <li>
-                <div class="num">2</div>
-                <div><strong>R$ 334 por sinistro</strong> — valor médio real pago, calculado a partir de 1.847 sinistros DIT pagos entre dez/2025 e mai/2026 na Base Full.</div>
-            </li>
-            <li>
-                <div class="num">3</div>
-                <div><strong>Base de 1.847 sinistros DIT pagos</strong> (dez/2025–mai/2026), extraída da Base Full de Sinistros. Representa o volume real do período de referência adotado no cálculo.</div>
-            </li>
-            <li>
-                <div class="num">4</div>
-                <div><strong>"Com Risco" ≠ fraudador confirmado.</strong> A classificação é baseada em critérios de risco comportamental e documental. A confirmação efetiva depende de análise manual da MetLife.</div>
-            </li>
-            <li>
-                <div class="num">5</div>
-                <div>O saving é <strong>potencial</strong> — é realizado apenas se a MetLife efetivamente negar os sinistros fraudulentos após análise e não pagar o benefício.</div>
-            </li>
-            <li>
-                <div class="num">6</div>
-                <div><strong>Período de análise real:</strong> dez/2025 a mai/2026 (6 meses).</div>
-            </li>
+            <li><div class="num">1</div><div><strong>Taxa de fraude de 8%</strong> baseada em piloto de 59 casos analisados — amostra pequena; pode variar com volume maior e com diferentes perfis de caso.</div></li>
+            <li><div class="num">2</div><div><strong>R$ 334 por sinistro</strong> — valor médio real pago, calculado a partir de 1.847 sinistros DIT pagos entre dez/2025 e mai/2026 na Base Full.</div></li>
+            <li><div class="num">3</div><div><strong>Base de 1.847 sinistros DIT pagos</strong> (dez/2025–mai/2026), extraída da Base Full de Sinistros. Representa o volume real do período de referência adotado no cálculo.</div></li>
+            <li><div class="num">4</div><div><strong>"Com Risco" ≠ fraudador confirmado.</strong> A classificação é baseada em critérios de risco comportamental e documental. A confirmação efetiva depende de análise manual da MetLife.</div></li>
+            <li><div class="num">5</div><div>O saving é <strong>potencial</strong> — é realizado apenas se a MetLife efetivamente negar os sinistros fraudulentos após análise e não pagar o benefício.</div></li>
+            <li><div class="num">6</div><div><strong>Período de análise real:</strong> dez/2025 a mai/2026 (6 meses).</div></li>
         </ul>
     </div>
 
     <div class="sep"></div>
 
-    <div class="section-header">
-        <h2>Seção 7 — Impacto do Score: Antes e Depois</h2>
-    </div>
-
+    <div class="section-header"><h2>Seção 7 — Impacto do Score: Antes e Depois</h2></div>
     <div class="antes-depois">
         <div class="ad-card antes">
-            <div class="ad-title">
-                <span style="font-size:20px">⚠️</span>
-                Sem o Score (cenário atual)
-            </div>
+            <div class="ad-title"><span style="font-size:20px">⚠️</span>Sem o Score (cenário atual)</div>
             <ul class="ad-list">
                 <li>MetLife analisa todos os sinistros sem priorização de risco</li>
                 <li>Fraudes passam despercebidas no volume total de sinistros</li>
@@ -505,14 +350,10 @@
                 <li>Nenhum dado comportamental do driver é considerado</li>
             </ul>
         </div>
-
         <div class="ad-card depois">
-            <div class="ad-title">
-                <span style="font-size:20px">✅</span>
-                Com o Score
-            </div>
+            <div class="ad-title"><span style="font-size:20px">✅</span>Com o Score</div>
             <ul class="ad-list">
-                <li><strong>275.509</strong> drivers sinalizados previamente com critérios de risco</li>
+                <li><strong>275.509</strong> drivers sinalizados previamente com 7 critérios de risco</li>
                 <li>MetLife prioriza os <strong>1.847</strong> sinistros DIT pagos (dez/25–mai/26) de drivers Com Risco na fila de análise</li>
                 <li>Foco da equipe de fraudes nos casos de maior probabilidade de irregularidade</li>
                 <li>Potencial de saving: <span class="highlight-val">R$ 49,4K</span> (baseado em valor médio real de R$ 334)</li>
@@ -521,9 +362,6 @@
     </div>
 
     <br>
-
-
-
 </div>
 
 </body>
