@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NPS × Problemas na Jornada de Sinistro — MetLife × iFood 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:#F4F4F5;color:#18181B;line-height:1.55}
+header{background:linear-gradient(135deg,#18181B 0%,#27272A 100%);color:white;padding:32px 20px;text-align:center;border-bottom:3px solid #EA1D2C}
+.htitle{font-size:22px;font-weight:800;letter-spacing:-.03em;margin-bottom:8px}
+.hsub{font-size:14px;color:#A1A1AA;margin-bottom:10px}
+.hbadge{display:inline-block;background:#EA1D2C;color:white;font-size:12px;font-weight:700;padding:4px 16px;border-radius:20px;letter-spacing:.02em}
+.wrap{max-width:960px;margin:0 auto;padding:24px 16px 48px}
+
+/* KPI Cards */
+.kgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.kcard{background:white;border-radius:12px;padding:20px 16px;box-shadow:0 1px 3px rgba(0,0,0,.07);text-align:center;border-top:3px solid transparent}
+.kcard.accent-blue{border-top-color:#3B82F6}
+.kcard.accent-orange{border-top-color:#F59E0B}
+.kcard.accent-red{border-top-color:#EA1D2C}
+.kval{font-size:38px;font-weight:800;line-height:1;margin-bottom:4px}
+.klbl{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:#71717A;font-weight:600}
+.ksub{font-size:12px;color:#A1A1AA;margin-top:5px}
+
+/* Sections */
+.sec{background:white;border-radius:12px;padding:22px;box-shadow:0 1px 3px rgba(0,0,0,.07);margin-bottom:16px}
+.stitle{font-size:16px;font-weight:700;color:#18181B;margin-bottom:4px}
+.ssub{font-size:13px;color:#71717A;margin-bottom:16px}
+
+/* Month cards */
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.mcard{background:#FAFAFA;border-radius:10px;padding:16px;border:1px solid #E4E4E7}
+.mname{font-size:12px;font-weight:700;color:#71717A;margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em}
+.mnps{font-size:34px;font-weight:800;margin-bottom:4px}
+.dbar{display:flex;gap:2px;height:8px;border-radius:4px;overflow:hidden;margin:8px 0}
+.dp{background:#059669}.dn{background:#D4D4D8}.dd{background:#dc2626}
+.dleg{display:flex;gap:10px;font-size:11px}
+
+/* Problem cards */
+.pcard{background:#FAFAFA;border-radius:10px;padding:18px;margin-bottom:12px;border:1px solid #E4E4E7}
+.phead{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.picon{font-size:20px}
+.ptitle{font-weight:700;font-size:14px;flex:1;color:#18181B}
+.pbadge{font-size:12px;font-weight:700;padding:3px 10px;border-radius:12px;white-space:nowrap}
+
+/* Quote boxes - CLEAN style */
+.qbox{background:#F7F7F7;border-radius:6px;padding:12px 14px;margin-bottom:8px;margin-top:8px}
+.qtxt{font-style:italic;font-size:13px;color:#374151;margin-bottom:6px;line-height:1.5}
+.qmeta{font-size:11px;color:#A1A1AA;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+
+/* New theme cards */
+.tcard{background:#FAFAFA;border-radius:10px;padding:16px;margin-bottom:10px}
+.thead2{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.ticon{font-size:16px}
+.tname{font-weight:700;font-size:14px;flex:1;color:#18181B}
+.talert{background:#FEF2F2;color:#EA1D2C;font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;border:1px solid #FECACA}
+.tcount{font-size:12px;color:#71717A;font-weight:500}
+
+/* Indeferimentos */
+.indf-table{width:100%;border-collapse:collapse;margin-top:10px;font-size:13px}
+.indf-table th{text-align:left;padding:8px 10px;background:#F4F4F5;font-weight:600;color:#52525B;font-size:11px;text-transform:uppercase;letter-spacing:.04em}
+.indf-table td{padding:8px 10px;border-bottom:1px solid #F4F4F5}
+.td-mot{color:#374151}
+.td-cnt{font-weight:700;color:#EA1D2C;text-align:right;white-space:nowrap}
+.indf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.indf-stat{background:#FAFAFA;border-radius:8px;padding:12px;text-align:center;border:1px solid #E4E4E7}
+.indf-val{font-size:26px;font-weight:800;line-height:1;margin-bottom:3px}
+.indf-lbl{font-size:11px;color:#71717A;text-transform:uppercase;letter-spacing:.05em}
+
+/* Summary */
+.sumbox{background:#FAFAFA;border-radius:10px;padding:16px;border:1px solid #E4E4E7}
+.sumrow{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:7px 0;border-bottom:1px solid #F4F4F5}
+.sumrow:last-child{border-bottom:none}
+.sumrow-val{font-weight:700;color:#18181B}
+
+/* Padrões Recorrentes - Accordion */
+.grupo-card{background:white;border:1px solid #E4E4E7;border-radius:10px;padding:18px;margin-bottom:12px}
+.grupo-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px}
+.grupo-icon{font-size:22px;flex-shrink:0}
+.grupo-info{flex:1}
+.grupo-titulo{font-weight:700;font-size:15px;color:#18181B;margin-bottom:3px}
+.grupo-count{font-size:12px;color:#71717A;}
+.grupo-modelo{background:#F7F7F7;border-radius:8px;padding:12px 14px;margin-bottom:12px}
+.grupo-modelo-label{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#A1A1AA;font-weight:600;margin-bottom:6px}
+.grupo-modelo-txt{font-style:italic;font-size:13px;color:#374151;line-height:1.5;margin-bottom:4px}
+.grupo-modelo-nps{font-size:11px;font-weight:700;}
+.acc-btn{background:#EA1D2C;color:white;border:none;border-radius:6px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer;width:100%;text-align:left;transition:background .15s}
+.acc-btn:hover{background:#c41523}
+.acc-list{display:none;margin-top:10px;}
+.acc-list.open{display:block;}
+.acc-item{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:9px 0;border-bottom:1px solid #F4F4F5}
+.acc-item:last-child{border-bottom:none}
+.acc-txt{font-size:13px;color:#374151;font-style:italic;flex:1;line-height:1.45}
+.acc-nps{font-size:12px;font-weight:700;white-space:nowrap;padding:2px 8px;background:#F4F4F5;border-radius:8px;}
+
+footer{text-align:center;font-size:12px;color:#A1A1AA;margin-top:20px;padding-bottom:24px}
+
+@media(max-width:600px){
+  .kgrid{grid-template-columns:1fr 1fr}
+  .mgrid{grid-template-columns:1fr}
+  .indf-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="htitle">💬 Comentários NPS × Problemas na Jornada de Sinistro</div>
+  <div class="hsub">MetLife × iFood — Análise de maio e junho de 2026</div>
+  <span class="hbadge">Maio–Junho 2026 · até 05/06/2026</span>
+</header>
+
+<div class="wrap">
+
+  <!-- KPI Cards -->
+  <div class="kgrid">
+    <div class="kcard accent-blue">
+      <div class="kval" style="color:#3B82F6;">268</div>
+      <div class="klbl">Respondentes</div>
+      <div class="ksub">Mai: 241 · Jun: 27</div>
+    </div>
+    <div class="kcard accent-orange">
+      <div class="kval" style="color:#dc2626;">-13</div>
+      <div class="klbl">NPS do Período</div>
+      <div class="ksub">Mai: -7 · Jun: -63</div>
+    </div>
+    <div class="kcard accent-red">
+      <div class="kval" style="color:#EA1D2C;">148</div>
+      <div class="klbl">Recusados</div>
+      <div class="ksub">55% do total</div>
+    </div>
+  </div>
+
+  <!-- Indeferimentos -->
+  <div class="sec">
+    <div class="stitle">🚫 Indeferimentos — Detalhamento</div>
+    <div class="ssub">Análise dos motivos de recusa no período maio–junho 2026</div>
+    <div class="indf-grid">
+      <div class="indf-stat">
+        <div class="indf-val" style="color:#EA1D2C;">148</div>
+        <div class="indf-lbl">Total recusados</div>
+      </div>
+      <div class="indf-stat">
+        <div class="indf-val" style="color:#e67e22;">99</div>
+        <div class="indf-lbl">Com "automático"</div>
+      </div>
+      <div class="indf-stat">
+        <div class="indf-val" style="color:#3B82F6;">67%</div>
+        <div class="indf-lbl">Indeferidos auto.</div>
+      </div>
+    </div>
+    <table class="indf-table">
+      <thead>
+        <tr><th>Motivo de Recusa Automático</th><th style="text-align:right;">Qtd</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="td-mot">Comunicação de sinistro encerrada por não envio da documentação básica - Automático</td><td class="td-cnt">40</td></tr>
+        <tr><td class="td-mot">Encerrado por falta de documentos - Automático</td><td class="td-cnt">22</td></tr>
+        <tr><td class="td-mot">Encerrado por insuficiência de documentos - Automático</td><td class="td-cnt">18</td></tr>
+        <tr><td class="td-mot">Corrida durante período de afastamento - Automático</td><td class="td-cnt">10</td></tr>
+        <tr><td class="td-mot">Cobertura paga nos últimos 180 dias - Automático</td><td class="td-cnt">5</td></tr>
+        <tr><td class="td-mot">Cobertura paga nos últimos 90 dias - Automático</td><td class="td-cnt">3</td></tr>
+        <tr><td class="td-mot">Excedido o prazo prescricional de um ano após o acidente - Automático</td><td class="td-cnt">1</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Visão Geral -->
+  <div class="sec">
+    <div class="stitle">📊 Visão Geral do Período</div>
+    <div class="ssub">Distribuição de promotores, neutros e detratores por mês</div>
+    <div class="mgrid">
+      <div class="mcard">
+        <div class="mname">🗓️ Maio 2026</div>
+        <div class="mnps" style="color:#dc2626;">-7</div>
+        <div class="dbar">
+          <div class="dp" style="flex:42.7;"></div>
+          <div class="dn" style="flex:7.1;"></div>
+          <div class="dd" style="flex:50.2;"></div>
+        </div>
+        <div class="dleg">
+          <span style="color:#059669;">▲ 42.7% Prom.</span>
+          <span style="color:#A1A1AA;">◼ 7.1% Neu.</span>
+          <span style="color:#dc2626;">▼ 50.2% Det.</span>
+        </div>
+        <div style="font-size:12px;color:#A1A1AA;margin-top:6px;">241 respondentes · mês completo</div>
+      </div>
+      <div class="mcard">
+        <div class="mname">🗓️ Junho 2026</div>
+        <div class="mnps" style="color:#dc2626;">-63</div>
+        <div class="dbar">
+          <div class="dp" style="flex:14.8;"></div>
+          <div class="dn" style="flex:7.4;"></div>
+          <div class="dd" style="flex:77.8;"></div>
+        </div>
+        <div class="dleg">
+          <span style="color:#059669;">▲ 14.8% Prom.</span>
+          <span style="color:#A1A1AA;">◼ 7.4% Neu.</span>
+          <span style="color:#dc2626;">▼ 77.8% Det.</span>
+        </div>
+        <div style="font-size:12px;color:#A1A1AA;margin-top:6px;">27 respondentes · até 05/06/2026</div>
+      </div>
+    </div>
+    <div class="sumbox">
+      <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:#52525B;">Distribuição dos 147 respondentes com algum texto (q1 ou q2)</div>
+      <div class="sumrow">
+        <span>🔴 Encaixam em problemas mapeados (1–6)</span>
+        <span class="sumrow-val">~40 comentários</span>
+      </div>
+      <div class="sumrow">
+        <span>🟠 Temas novos identificados</span>
+        <span class="sumrow-val">~60 menções</span>
+      </div>
+      <div class="sumrow">
+        <span>🔵 Padrões recorrentes identificados</span>
+        <span class="sumrow-val">4 grupos · 60+ comentários</span>
+      </div>
+      <div class="sumrow">
+        <span>⚪ Não específicos / genéricos</span>
+        <span class="sumrow-val">~30 comentários</span>
+      </div>
+      <div class="sumrow">
+        <span>💬 Sem comentário de texto</span>
+        <span class="sumrow-val">121 respondentes</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Seção 1: Problemas Mapeados -->
+  <div class="sec">
+    <div class="stitle">🔍 Seção 1 — Os 6 Problemas Mapeados no Fluxo de Sinistro</div>
+    <div class="ssub">Apenas comentários específicos — mencionam detalhes concretos do problema. Comentários vagos foram excluídos. Priorizados detratores (NPS ≤ 6).</div>
+
+    <div class="pcard">
+      <div class="phead">
+        <span class="picon">🔧</span>
+        <div class="ptitle">Problema 1: Erro na abertura de sinistro</div>
+        <div class="pbadge" style="background:#e74c3c22;color:#e74c3c;">5 exemplos</div>
+      </div>
+      <div class="qbox"><div class="qtxt">"Péssimo atendimento, pior tempo de análise, processo de abertura insalubre, péssima comunicação sobre o processo, valor baixo para a indenização, processo de abertura burocratizado."</div><div class="qmeta">Cob: IPA · <span style="color:#dc2626;font-weight:700;">NPS: 0</span> · <span style="color:#059669;">Pago</span></div></div>
+      <div class="qbox"><div class="qtxt">"A abertura foi um pouco confusa porque o aplicativo do Ifood informa que o atendimento pelo aplicativo foi descontinuado — tive que procurar outro meio."</div><div class="qmeta">Cob: DIT · <span style="color:#d97706;font-weight:700;">NPS: 8</span> · <span style="color:#dc2626;">Recusado</span></div></div>
+      <div class="qbox"><div class="qtxt">"O site tem algumas falhas e trava constantemente."</div><div class="qmeta">Cob: DIT · <span style="color:#d97706;font-weight:700;">NPS: 8</span> · <span style="color:#dc2626;">Recusado</span></div></div>
+      <div class="qbox"><div class="qtxt">"Aplicativo horroroso"</div><div class="qmeta">Cob: DIT · <span style="color:#dc2626;font-weight:700;">NPS: 0</span> · <span style="color:#dc2626;">Recusado</span></div></div>
+      <div class="qbox"><div class="qtxt">"Eu não consegui ainda abrir nenhum processo — toda vez que tentei, não conseguia concluir."</div><div class="qmeta">Cob: DIT · <span style="color:#dc2626;font-weight:700;">NPS: 0</span> · <span style="color:#dc2626;">Recusado</span></div></div>
+    </div>
+
+    <div class="pcard">
+      <div class="phead">
+        <span class="picon">🔑</span>
+        <div class="ptitle">Problema 2: Token de validação inválido</div>
+        <div class="pbadge" style="background:#9b59b622;color:#9b59b6;">0 menções</div>
+      </div>
+      <div style="color:#94a3b8;font-style:italic;font-size:13px;">Sem exemplos específicos com texto neste período.</div>
+    </div>
+
+    <div class="pcard">
+      <div class="phead">
+        <span class="picon">❌</span>
+        <div class="ptitle">Problema 3: Indeferimentos automáticos — regras não validadas</div>
+        <div class="pbadge" style="background:#e67e2222;color:#e67e22;">5 exemplos</div>
+      </div>
+      <div class="qbox"><div class="qtxt">"Meu pedido de seguro não foi aceito por não estar em rota na hora do acidente, sendo que fiz várias entregas durante o dia e estava on no app na hora do ocorrido."</div><div class="qmeta">Cob: DIT · <span style="color:#dc2626;font-weight:700;">NPS: 1</span> · <span style="color:#dc2626;">Recusado</span></div></div>
+      <div class="qbox"><div class="qtxt">"Sofri um acidente de moto, onde veio a romper o ligamento do Cruzado Anterior e lesão do Menisco. Fiz a entrega dos atestados — o primeiro de 4 dias, o segundo de 90 dias depois do diagnóstico. Não aceitaram, falaram que só o primeiro valia. Hoje estou sem trabalhar há 4 meses, não recebi nenhum suporte. Péssimo."</div><div class="qmeta">Cob: DIT · <span style="color:#dc2626;font-weight:700;">NPS: 0</span> · <span style="color:#dc2626;">Recusado</span></div></div>
+      <div class="qbox"><div class="qtxt">"Não foi acionado meu seguro porque errei uma data e não quiseram acionar — qualquer motivo é suficiente pra negar."</div><div class="qmeta">Cob: DIT · <span style="color:#dc2626;font-weight:700;">NPS: 0</span> · <span style="color:#dc2626;">Recusado</span></div></div>
+      <div class="qbox"><div class="qtxt">"Minha experiência foi extremamente negativa. Mesmo apresentando documentação médica, exames, atestados e afastamento registrado, meu sinistro foi indeferido sem explicação clara."</div><div class="qmeta">Cob: DIT · <span style="color:#dc2626;font-weight:700;">NPS: 0</span> · <span style="color:#dc2626;">Recusado</span></div></div>
+      <div class="qbox"><div class="qtxt">"Só porque não estava em rota na hora fiquei desamparado 60 dias sem poder fazer entrega, sem poder sair da cama pelo acidente. Regra injusta."</div><div class="qmeta">Cob: DIT · <span style="color:#dc2626;font-weight:700;">NPS: 0</span> · <span style="color:#dc2626;">Recusado</span></div></div>
+    </div>
+
+    <div class="pcard">
+      <div class="phead">
+        <span class="picon">📎</span>
+        <div class="ptitle">Problema 4: Documentos enviados mas processo encerrado sem aviso</div>
+        <div class="pbadge" style="background:#3498db22;color:#3498db;">5 exemplos</div>
+      </div>
+      <div class="qbox"><div class="qtxt">"Fiquei uma semana enviando e reenviando documentação, e só fiquei sabendo que não ia receber 40 dias depois — porque entrei em contato. Nunca me avisaram."</div><div class="qmeta">Cob: DIT · <span style="color:#dc2626;font-weight:700;">NPS: 0</span> · <span style="color:#dc2626;">Recusado</span></div></div>
+      <div class="qbox"><div class="qtxt">"Não entraram em contato comigo, mesmo abrindo o chamado no iFood, boletim de ocorrência, laudos médicos, exames — tudo enviado. Nunca tive retorno."</div><div class="qmeta">Cob: DIT · <span style="color:#dc2626;font-weight:700;">NPS: 0</span> · <span style="color:#dc2626;">Recusado</span></div></div>
+      <div class="qbox"><div class="qtxt">"To com toda documentação em mãos, já enviei, mas não estão aprovando — to com fratura no tornozelo esquerdo com 2 pinos, não to conseguindo trabalhar."</div><div class="qmeta">Cob: DIT · <span style="color:#dc2626;font-weight:700;">NPS: 0</span> · <span style="color:#dc2626;">Recusado</span></div></div>
+      <div class="qbox"><div class="qtxt">"Para essa avaliação a pontuação é devida pois o acompanhamento do processo foi falho, sem retorno. Comunicação falha também, sem resposta, e cobrança excessiva de documentos."</div><div class="qmeta">Cob: DIT · <span style="color:#dc2626;font-weight:700;">NPS: 0</span> · <span style="color:#059669;">Pago</span></div></div>
+      <div class="qbox"><div class="qtxt">"Até hoje não tive nenhuma ajuda, mesmo entregando o que pediram junto com BO e documentação completa."</div><div class="qmeta">Cob: DIT · <span style="color:#dc2626;font-weight:700;">NPS: 0</span> · <span style="color:#dc2626;">Recusado</span></div></div>
+    </div>
+
+    <div class="pcard">
+      <div class="phead">
+        <span class="picon">📂</span>
+        <div class="ptitle">Problema 5: Limitação de múltiplos arquivos</div>
+        <div class="pbadge" style="background:#1abc9c22;color:#1abc9c;">1 exemplo</div>
+      </div>
+      <div class="qbox"><div class="qtxt">"Não consegui enviar meus documentos — 2 dias tentando e o sistema não aceitou. Nunca completei o processo."</div><div class="qmeta">Cob: DIT · <span style="color:#dc2626;font-weight:700;">NPS: 0</span> · <span style="color:#dc2626;">Recusado</span></div></div>
+    </div>
+
+    <div class="pcard">
+      <div class="phead">
+        <span class="picon">💰</span>
+        <div class="ptitle">Problema 6: Valor recebido abaixo do esperado</div>
+        <div class="pbadge" style="background:#f39c1222;color:#f39c12;">5 exemplos</div>
+      </div>
+      <div class="qbox"><div class="qtxt">"Me depositaram um valor que não condiz com o que fala no aplicativo do iFood — meu afastamento é de 60 dias por lesão óssea, mas pagaram bem menos."</div><div class="qmeta">Cob: DIT · <span style="color:#dc2626;font-weight:700;">NPS: 2</span> · <span style="color:#dc2626;">Recusado</span></div></div>
+      <div class="qbox"><div class="qtxt">"Meu atestado era de 12 dias, pagaram apenas 8 dias do valor! Sem explicação para a diferença."</div><div class="qmeta">Cob: DIT · <span style="color:#dc2626;font-weight:700;">NPS: 0</span> · <span style="color:#059669;">Pago</span></div></div>
+      <div class="qbox"><div class="qtxt">"Perde parte de um dedo e recebe R$ 3.600. É isso que a vida do entregador vale para o iFood."</div><div class="qmeta">Cob: DIT · <span style="color:#dc2626;font-weight:700;">NPS: 0</span> · <span style="color:#059669;">Pago</span></div></div>
+      <div class="qbox"><div class="qtxt">"Me pagaram o valor no seguro de vida, refiz a junta médica e o valor continua o mesmo. Continuo com sequelas e o valor veio muito abaixo do esperado — pagaram mais de fisioterapia do que seguro de vida."</div><div class="qmeta">Cob: IPA · <span style="color:#dc2626;font-weight:700;">NPS: 3</span> · <span style="color:#059669;">Pago</span></div></div>
+      <div class="qbox"><div class="qtxt">"Recebi um valor referente a 30 dias de afastamento, mas ficarei afastado 63 dias — a revisão ainda não foi feita e minha renda continua comprometida."</div><div class="qmeta">Cob: DIT · <span style="color:#d97706;font-weight:700;">NPS: 7</span> · <span style="color:#059669;">Pago</span></div></div>
+    </div>
+  </div>
+
+  <!-- Seção 2: Temas Novos -->
+  <div class="sec">
+    <div class="stitle">🆕 Seção 2 — Temas Novos Identificados</div>
+    <div class="ssub">Temas com detalhe real — o comentário descreve <em>o que</em> faltou ou <em>o que</em> aconteceu de errado. Comentários vagos foram excluídos. 3 exemplos específicos por tema. 🔥 Destaque para temas com mais de 3 menções.</div>
+
+    <div class="tcard" style="border:2px solid #EA1D2C;">
+      <div class="thead2">
+        <span class="ticon">⏱️</span>
+        <span class="tname">Demora no processo</span>
+        <span class="talert">🔥 destaque</span>
+        <span class="tcount">30 menções</span>
+      </div>
+      <div class="qbox"><div class="qtxt">"Sofri o acidente, até agora não recebi valor nenhum. Precisando de dinheiro pra fazer acompanhamento — vão esperar eu ficar bom pra mandar ajuda? É uma sacanagem como entregador."</div><div class="qmeta">Cob: DIT · <span style="color:#dc2626;font-weight:700;">NPS: 0</span> · <span style="color:#dc2626;">Recusado</span></div></div>
+      <div class="qbox"><div class="qtxt">"Me acidentei em 11 de fevereiro. Até agora nada! Liguei diversas vezes, sempre mandei o que pediram. Tive que me virar sem nenhum auxílio durante meses."</div><div class="qmeta">Cob: DIT · <span style="color:#dc2626;font-weight:700;">NPS: 0</span> · <span style="color:#dc2626;">Recusado</span></div></div>
+      <div class="qbox"><div class="qtxt">"Demorei quase 1 mês e meio para receber, fiquei 15 dias parado, só consegui atestado para 7 dias e fora o atendimento lento e sem resposta no meio do processo."</div><div class="qmeta">Cob: DIT · <span style="color:#dc2626;font-weight:700;">NPS: 0</span> · <span style="color:#059669;">Pago</span></div></div>
+    </div>
+
+    <div class="tcard" style="border:2px solid #EA1D2C;">
+      <div class="thead2">
+        <span class="ticon">😤</span>
+        <span class="tname">Atendimento ruim / falta de suporte</span>
+        <span class="talert">🔥 destaque</span>
+        <span class="tcount">18 menções</span>
+      </div>
+      <div class="qbox"><div class="qtxt">"Todas as vezes que entrei em contato, tanto via telefone, WhatsApp e e-mail, os atendentes foram horríveis — sempre uma informação diferente, sem resolução."</div><div class="qmeta">Cob: DIT · <span style="color:#dc2626;font-weight:700;">NPS: 0</span> · <span style="color:#059669;">Pago</span></div></div>
+      <div class="qbox"><div class="qtxt">"Uma merda — to com toda minha documentação aqui e meu seguro não foi liberado. To em casa com o tornozelo quebrado sem trabalhar e com minhas contas atrasando."</div><div class="qmeta">Cob: DIT · <span style="color:#dc2626;font-weight:700;">NPS: 0</span> · <span style="color:#dc2626;">Recusado</span></div></div>
+      <div class="qbox"><div class="qtxt">"Quase morri trabalhando no iFood, apresentei boletim de ocorrência, fotos, vídeos. Mesmo assim não me deram suporte algum."</div><div class="qmeta">Cob: DIT · <span style="color:#dc2626;font-weight:700;">NPS: 0</span> · <span style="color:#dc2626;">Recusado</span></div></div>
+    </div>
+
+    <div class="tcard" style="border:2px solid #EA1D2C;">
+      <div class="thead2">
+        <span class="ticon">📋</span>
+        <span class="tname">Regras do seguro injustas ou confusas</span>
+        <span class="talert">🔥 destaque</span>
+        <span class="tcount">4 menções</span>
+      </div>
+      <div class="qbox"><div class="qtxt">"Acho injusto só avaliar 30 dias — se você receber mais de 30 dias de atestado e não pode trabalhar durante esse período, vai fazer o quê?"</div><div class="qmeta">Cob: DIT · <span style="color:#d97706;font-weight:700;">NPS: 7</span> · <span style="color:#059669;">Pago</span></div></div>
+      <div class="qbox"><div class="qtxt">"Não aceitaram meu atestado — me acidentei quase às 10 da noite, meu atestado saiu no outro dia. Regra não contempla essa situação e o processo foi negado."</div><div class="qmeta">Cob: DIT · <span style="color:#dc2626;font-weight:700;">NPS: 0</span> · <span style="color:#dc2626;">Recusado</span></div></div>
+      <div class="qbox"><div class="qtxt">"Você enrola demais — esse seguro é uma palhacada. Vou processar."</div><div class="qmeta">Cob: DIT · <span style="color:#dc2626;font-weight:700;">NPS: 0</span> · <span style="color:#dc2626;">Recusado</span></div></div>
+    </div>
+  </div>
+
+  <!-- Seção 3: Padrões Recorrentes -->
+  <div class="sec">
+    <div class="stitle">🔁 Seção 3 — Padrões Recorrentes</div>
+    <div class="ssub">Grupos semânticos com 3 ou mais comentários similares. Ordenados por volume. Clique em "Ver todos" para expandir cada grupo.</div>
+
+    <div class="grupo-card">
+      <div class="grupo-header">
+        <span class="grupo-icon">⏱️</span>
+        <div class="grupo-info">
+          <div class="grupo-titulo">Demora excessiva no processo</div>
+          <div class="grupo-count">30 comentários similares identificados no período</div>
+        </div>
+      </div>
+      <div class="grupo-modelo">
+        <div class="grupo-modelo-label">Comentário representativo</div>
+        <div class="grupo-modelo-txt">"Me acidentei em 11 de fevereiro. Até agora nada! Liguei diversas vezes, sempre mandei o que pediram. Tive que me virar sem nenhum auxílio durante meses."</div>
+        <div class="grupo-modelo-nps" style="color:#dc2626;">NPS 0</div>
+      </div>
+      <button class="acc-btn" onclick="toggleAcc(0)">Ver todos os 15 comentários ▾</button>
+      <div class="acc-list" id="acc-0">
+        <div class="acc-item"><div class="acc-txt">"Me acidentei em 11 de fevereiro. Até agora nada! Liguei diversas vezes, sempre mandei o que pediram. Tive que me virar sem nenhum auxílio durante meses."</div><div class="acc-nps" style="color:#dc2626;">NPS 0</div></div>
+        <div class="acc-item"><div class="acc-txt">"Sofri o acidente, até agora não recebi valor nenhum. Precisando de dinheiro pra fazer acompanhamento — vão esperar eu ficar bom pra mandar ajuda?"</div><div class="acc-nps" style="color:#dc2626;">NPS 0</div></div>
+        <div class="acc-item"><div class="acc-txt">"Demorei quase 1 mês e meio para receber, fiquei 15 dias parado sem poder trabalhar."</div><div class="acc-nps" style="color:#dc2626;">NPS 0</div></div>
+        <div class="acc-item"><div class="acc-txt">"Já faz quase um mês que tou acionando o seguro e nada de resolver."</div><div class="acc-nps" style="color:#dc2626;">NPS 0</div></div>
+        <div class="acc-item"><div class="acc-txt">"Muita demora pra mandar documentos — processo longo demais."</div><div class="acc-nps" style="color:#dc2626;">NPS 3</div></div>
+        <div class="acc-item"><div class="acc-txt">"Até hoje sem conseguir concluir o processo devido à documentação exigida."</div><div class="acc-nps" style="color:#dc2626;">NPS 0</div></div>
+        <div class="acc-item"><div class="acc-txt">"Ainda estou sem poder trabalhar aguardando fazer cirurgia no joelho — nenhum suporte no período."</div><div class="acc-nps" style="color:#dc2626;">NPS 3</div></div>
+        <div class="acc-item"><div class="acc-txt">"É realmente muito ótimo poder contar com o seguro, mas de fato, a demora na análise atrapalha muito, se o motoboy não tiver reserva financeira vai passar aperto."</div><div class="acc-nps" style="color:#d97706;">NPS 7</div></div>
+        <div class="acc-item"><div class="acc-txt">"Muito demorado pra analisar um pedido."</div><div class="acc-nps" style="color:#dc2626;">NPS 4</div></div>
+        <div class="acc-item"><div class="acc-txt">"A demora da análise de 4 fotos dos documentos não faz sentido."</div><div class="acc-nps" style="color:#dc2626;">NPS 1</div></div>
+        <div class="acc-item"><div class="acc-txt">"Demorou."</div><div class="acc-nps" style="color:#dc2626;">NPS 2</div></div>
+        <div class="acc-item"><div class="acc-txt">"Não me respondeu no prazo."</div><div class="acc-nps" style="color:#dc2626;">NPS 1</div></div>
+        <div class="acc-item"><div class="acc-txt">"Lentidão no processo."</div><div class="acc-nps" style="color:#dc2626;">NPS 0</div></div>
+        <div class="acc-item"><div class="acc-txt">"Até hoje não consegui o benefício."</div><div class="acc-nps" style="color:#dc2626;">NPS 0</div></div>
+        <div class="acc-item"><div class="acc-txt">"Vários motivos — principalmente a demora pra análise e o atendimento que cada um informa uma coisa."</div><div class="acc-nps" style="color:#dc2626;">NPS 5</div></div>
+      </div>
+    </div>
+
+    <div class="grupo-card">
+      <div class="grupo-header">
+        <span class="grupo-icon">🚫</span>
+        <div class="grupo-info">
+          <div class="grupo-titulo">Indeferido por regra injusta ou sem explicação</div>
+          <div class="grupo-count">11 comentários similares identificados no período</div>
+        </div>
+      </div>
+      <div class="grupo-modelo">
+        <div class="grupo-modelo-label">Comentário representativo</div>
+        <div class="grupo-modelo-txt">"Minha experiência foi extremamente negativa. Mesmo apresentando documentação médica, exames, atestados e afastamento registrado, meu sinistro foi indeferido sem explicação clara."</div>
+        <div class="grupo-modelo-nps" style="color:#dc2626;">NPS 0</div>
+      </div>
+      <button class="acc-btn" onclick="toggleAcc(1)">Ver todos os 9 comentários ▾</button>
+      <div class="acc-list" id="acc-1">
+        <div class="acc-item"><div class="acc-txt">"Minha experiência foi extremamente negativa. Mesmo apresentando documentação médica, exames, atestados e afastamento registrado, meu sinistro foi indeferido sem explicação clara."</div><div class="acc-nps" style="color:#dc2626;">NPS 0</div></div>
+        <div class="acc-item"><div class="acc-txt">"Meu pedido de seguro não foi aceito por não estar em rota na hora do acidente, sendo que fiz várias entregas durante o dia e estava on no app na hora do ocorrido."</div><div class="acc-nps" style="color:#dc2626;">NPS 1</div></div>
+        <div class="acc-item"><div class="acc-txt">"Não foi acionado meu seguro porque errei uma data e não quiseram acionar — qualquer motivo é suficiente pra negar."</div><div class="acc-nps" style="color:#dc2626;">NPS 0</div></div>
+        <div class="acc-item"><div class="acc-txt">"Não fui bem atendido. Negaram meu seguro com atestado médico de 7 + 2 dias. Não recomendo a ninguém."</div><div class="acc-nps" style="color:#dc2626;">NPS 0</div></div>
+        <div class="acc-item"><div class="acc-txt">"Sofri acidente de moto, rompi o ligamento Cruzado Anterior e Menisco. Não aceitaram meu segundo atestado de 90 dias — disseram que só o primeiro valia."</div><div class="acc-nps" style="color:#dc2626;">NPS 0</div></div>
+        <div class="acc-item"><div class="acc-txt">"Meu processo foi recusado e não sei por quê — nenhuma explicação foi fornecida."</div><div class="acc-nps" style="color:#dc2626;">NPS 0</div></div>
+        <div class="acc-item"><div class="acc-txt">"Não dão suporte ao motoboy na hora que precisa e ainda negam ajuda financeira a ele após um acidente com fratura na perna."</div><div class="acc-nps" style="color:#dc2626;">NPS 0</div></div>
+        <div class="acc-item"><div class="acc-txt">"Só porque não estava em rota na hora fiquei desamparado 60 dias sem poder fazer entrega, sem poder sair da cama."</div><div class="acc-nps" style="color:#dc2626;">NPS 0</div></div>
+        <div class="acc-item"><div class="acc-txt">"Não aceitaram meu atestado — me acidentei quase às 10 da noite, meu atestado saiu no outro dia."</div><div class="acc-nps" style="color:#dc2626;">NPS 0</div></div>
+      </div>
+    </div>
+
+    <div class="grupo-card">
+      <div class="grupo-header">
+        <span class="grupo-icon">💸</span>
+        <div class="grupo-info">
+          <div class="grupo-titulo">Valor recebido abaixo do esperado</div>
+          <div class="grupo-count">10 comentários similares identificados no período</div>
+        </div>
+      </div>
+      <div class="grupo-modelo">
+        <div class="grupo-modelo-label">Comentário representativo</div>
+        <div class="grupo-modelo-txt">"Perde parte de um dedo e recebe R$ 3.600. É isso que a vida do entregador vale para o iFood."</div>
+        <div class="grupo-modelo-nps" style="color:#dc2626;">NPS 0</div>
+      </div>
+      <button class="acc-btn" onclick="toggleAcc(2)">Ver todos os 10 comentários ▾</button>
+      <div class="acc-list" id="acc-2">
+        <div class="acc-item"><div class="acc-txt">"Perde parte de um dedo e recebe R$ 3.600. É isso que a vida do entregador vale para o iFood."</div><div class="acc-nps" style="color:#dc2626;">NPS 0</div></div>
+        <div class="acc-item"><div class="acc-txt">"Meu atestado era de 12 dias, pagaram apenas 8 dias do valor! Sem explicação para a diferença."</div><div class="acc-nps" style="color:#dc2626;">NPS 0</div></div>
+        <div class="acc-item"><div class="acc-txt">"Me depositaram um valor que não condiz com o que fala no aplicativo do iFood — afastamento de 60 dias por lesão óssea, mas pagaram bem menos."</div><div class="acc-nps" style="color:#dc2626;">NPS 2</div></div>
+        <div class="acc-item"><div class="acc-txt">"Valor baixo — não cobre o período de afastamento real."</div><div class="acc-nps" style="color:#dc2626;">NPS 5</div></div>
+        <div class="acc-item"><div class="acc-txt">"O valor foi injusto — não condiz com a gravidade do meu acidente."</div><div class="acc-nps" style="color:#dc2626;">NPS 0</div></div>
+        <div class="acc-item"><div class="acc-txt">"A gravidade do acidente é séria e ainda estou sem poder trabalhar — o valor do seguro é irrisório perto disso."</div><div class="acc-nps" style="color:#dc2626;">NPS 5</div></div>
+        <div class="acc-item"><div class="acc-txt">"Recebi um valor referente a 30 dias de afastamento, mas ficarei afastado 63 dias."</div><div class="acc-nps" style="color:#d97706;">NPS 7</div></div>
+        <div class="acc-item"><div class="acc-txt">"Recebi bem pouco em vista do que ganho por dia — colocaram como se eu ganhasse R$87/dia, isso está errado."</div><div class="acc-nps" style="color:#dc2626;">NPS 2</div></div>
+        <div class="acc-item"><div class="acc-txt">"Me pagaram o valor no seguro de vida, refiz a junta médica e o valor continua o mesmo, com sequelas."</div><div class="acc-nps" style="color:#dc2626;">NPS 3</div></div>
+        <div class="acc-item"><div class="acc-txt">"Valor recebido não compatível com a renda do entregador."</div><div class="acc-nps" style="color:#dc2626;">NPS 0</div></div>
+      </div>
+    </div>
+
+    <div class="grupo-card">
+      <div class="grupo-header">
+        <span class="grupo-icon">📎</span>
+        <div class="grupo-info">
+          <div class="grupo-titulo">Documentação enviada sem resposta ou retorno</div>
+          <div class="grupo-count">9 comentários similares identificados no período</div>
+        </div>
+      </div>
+      <div class="grupo-modelo">
+        <div class="grupo-modelo-label">Comentário representativo</div>
+        <div class="grupo-modelo-txt">"Fiquei uma semana enviando e reenviando documentação, e só fiquei sabendo que não ia receber 40 dias depois — porque entrei em contato. Nunca me avisaram."</div>
+        <div class="grupo-modelo-nps" style="color:#dc2626;">NPS 0</div>
+      </div>
+      <button class="acc-btn" onclick="toggleAcc(3)">Ver todos os 9 comentários ▾</button>
+      <div class="acc-list" id="acc-3">
+        <div class="acc-item"><div class="acc-txt">"Fiquei uma semana enviando e reenviando documentação, e só fiquei sabendo que não ia receber 40 dias depois — porque entrei em contato. Nunca me avisaram."</div><div class="acc-nps" style="color:#dc2626;">NPS 0</div></div>
+        <div class="acc-item"><div class="acc-txt">"Não entraram em contato comigo, mesmo abrindo o chamado no iFood, boletim de ocorrência, laudos médicos, exames — tudo enviado. Nunca tive retorno."</div><div class="acc-nps" style="color:#dc2626;">NPS 0</div></div>
+        <div class="acc-item"><div class="acc-txt">"To com toda documentação em mãos, já enviei, mas não estão aprovando — to com fratura no tornozelo com 2 pinos, não consigo trabalhar."</div><div class="acc-nps" style="color:#dc2626;">NPS 0</div></div>
+        <div class="acc-item"><div class="acc-txt">"Acompanhamento do processo foi falho, sem retorno. Comunicação falha também, sem resposta."</div><div class="acc-nps" style="color:#dc2626;">NPS 0</div></div>
+        <div class="acc-item"><div class="acc-txt">"Até hoje não tive nenhuma ajuda, mesmo entregando o que pediram junto com BO e documentação completa."</div><div class="acc-nps" style="color:#dc2626;">NPS 0</div></div>
+        <div class="acc-item"><div class="acc-txt">"Até hoje não consegui fazer o acionamento do seguro — nenhuma resposta após envio dos documentos."</div><div class="acc-nps" style="color:#dc2626;">NPS 0</div></div>
+        <div class="acc-item"><div class="acc-txt">"Passei dificuldades, gastei do meu bolso e não recebi nada — não me deram suporte no momento que mais precisei e sempre trocavam de atendente."</div><div class="acc-nps" style="color:#dc2626;">NPS 0</div></div>
+        <div class="acc-item"><div class="acc-txt">"Não resolveram o meu problema e nem me deram resposta após o envio."</div><div class="acc-nps" style="color:#dc2626;">NPS 0</div></div>
+        <div class="acc-item"><div class="acc-txt">"Eu sofri um acidente, acionei o seguro e até agora não tive um retorno — não recebi um centavo."</div><div class="acc-nps" style="color:#dc2626;">NPS 0</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Seção 4: Não específicos -->
+  <div class="sec">
+    <div class="stitle">⚪ Seção 4 — Comentários Não Específicos</div>
+    <div class="ssub">Comentários genéricos, elogios ou reclamações vagas sem tema de jornada identificável. Top 5 priorizando detratores (NPS ≤ 6).</div>
+    <div style="background:#FAFAFA;border-radius:10px;padding:16px;border:1px solid #E4E4E7;">
+      <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:12px;">
+        <div style="font-size:32px;font-weight:800;color:#A1A1AA;">~30</div>
+        <div style="font-size:13px;color:#71717A;">comentários não específicos no período</div>
+      </div>
+      <div class="qbox"><div class="qtxt">"Ruim"</div><div class="qmeta">Cob: IPA · <span style="color:#dc2626;font-weight:700;">NPS: 0</span> · <span style="color:#dc2626;">Recusado</span></div></div>
+      <div class="qbox"><div class="qtxt">"Uma merda"</div><div class="qmeta">Cob: DIT · <span style="color:#dc2626;font-weight:700;">NPS: 0</span> · <span style="color:#dc2626;">Recusado</span></div></div>
+      <div class="qbox"><div class="qtxt">"Não recebi"</div><div class="qmeta">Cob: DIT · <span style="color:#dc2626;font-weight:700;">NPS: 0</span> · <span style="color:#dc2626;">Recusado</span></div></div>
+      <div class="qbox"><div class="qtxt">"Demorou muito"</div><div class="qmeta">Cob: DIT · <span style="color:#dc2626;font-weight:700;">NPS: 5</span> · <span style="color:#dc2626;">Recusado</span></div></div>
+      <div class="qbox"><div class="qtxt">"Processo burocrático, sem respeito nenhum ao entregador — nem todo mundo trabalha com fraude."</div><div class="qmeta">Cob: DIT · <span style="color:#dc2626;font-weight:700;">NPS: 1</span> · <span style="color:#dc2626;">Recusado</span></div></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Relatório atualizado em 12/06/2026 · Fonte: Planilha NPS MetLife × iFood · Período: Maio–Junho 2026 · até 05/06/2026
+</footer>
+
+<script>
+function toggleAcc(i) {
+  var el = document.getElementById('acc-' + i);
+  var btn = el.previousElementSibling;
+  if (el.classList.contains('open')) {
+    el.classList.remove('open');
+    btn.textContent = btn.textContent.replace('▴', '▾');
+  } else {
+    el.classList.add('open');
+    btn.textContent = btn.textContent.replace('▾', '▴');
+  }
+}
+</script>
+
+</body>
+</html>
